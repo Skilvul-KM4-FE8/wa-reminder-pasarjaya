@@ -2,26 +2,61 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
-export type Payment = {
+export type Ruko = {
   id: string;
-  amount: number;
-  status: "pending" | "processing" | "success" | "failed";
-  email: string;
+  name: string;
+  phone: string;
+  createdAt: Date;
+  updatedAt: Date;
+  address: string;
+  contractDue: Date;
+  shopBlock: string;
+  shopNumber: string;
+  shopSize: number;
+  pasarName: string;
+  reminders: {
+    id: string;
+    title: string;
+    date: Date;
+    clientId: string;
+    createdAt: Date;
+    updatedAt: Date;
+  }[];
 };
 
-export const columns: ColumnDef<Payment>[] = [
+export const columns: ColumnDef<Ruko>[] = [
   {
-    accessorKey: "status",
-    header: "Status",
+    accessorKey: "name",
+    header: "Name",
   },
   {
-    accessorKey: "email",
-    header: "Email",
+    accessorKey: "phone",
+    header: "Phone",
   },
   {
-    accessorKey: "amount",
-    header: "Amount",
+    accessorKey: "address",
+    header: "Address",
+  },
+  {
+    accessorKey: "shopBlock",
+    header: "Block",
+  },
+  {
+    accessorKey: "shopNumber",
+    header: "Number",
+  },
+  {
+    accessorKey: "shopSize",
+    header: "Size (m²)",
+    cell: ({ row }) => `${row.original.shopSize} m²`,
+  },
+  {
+    accessorKey: "contractDue",
+    header: "Contract Due",
+    cell: ({ row }) => new Date(row.original.contractDue).toLocaleDateString(),
+  },
+  {
+    accessorKey: "pasarName",
+    header: "Pasar",
   },
 ];
