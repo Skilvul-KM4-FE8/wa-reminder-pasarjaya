@@ -20,9 +20,21 @@ import { NextResponse } from "next/server";
 import prisma from "../../../../lib/prisma";
 
 export async function GET() {
+  const clients = await prisma.client.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+    include: {
+      reminders: true,
+    },
+  });
+
   return new Response(
     JSON.stringify({
-      message: "Hello from the server!",
+      message: "success",
+      data: clients,
+      total: clients.length,
+      totalPage: Math.ceil(clients.length / 10),
     }),
     {
       status: 200,
