@@ -23,7 +23,7 @@ import { useGetRuko } from "../utils /useGetRuko";
 export default function DemoPage() {
   const { data, isLoading, error } = useGetRuko();
 
-  console.log(data.data);
+  // console.log(data.data);
   if (isLoading) {
     return <div>Loading...</div>;
   }
