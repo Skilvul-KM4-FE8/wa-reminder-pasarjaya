@@ -3,7 +3,7 @@
 import { Button } from "@/app/components/ui/button";
 import { Ruko, columns } from "./columns";
 import { DataTable } from "./data-table";
-import { useGetRuko } from "../utils /useGetRuko";
+import { useGetRuko } from "@/app/utils/useGetRuko";
 
 // model Client {
 //   id          String     @id @default(cuid())

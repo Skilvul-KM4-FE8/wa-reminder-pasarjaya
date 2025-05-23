@@ -156,7 +156,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Users/alfitosantosa/projects/nextjs-learning/learning-nextjs/app/generated/prisma",
+      "value": "/Users/alfitosantosa/projects/pasarjaya/wa-reminder-pasarjaya/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -170,20 +170,21 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/Users/alfitosantosa/projects/nextjs-learning/learning-nextjs/prisma/schema.prisma",
+    "sourceFilePath": "/Users/alfitosantosa/projects/pasarjaya/wa-reminder-pasarjaya/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": "../../../.env",
-    "schemaEnvPath": "../../../.env"
+    "rootEnvPath": null,
+    "schemaEnvPath": "../../.env"
   },
-  "relativePath": "../../../prisma",
+  "relativePath": "../../prisma",
   "clientVersion": "6.8.2",
   "engineVersion": "2060c79ba17c6bb9f5823312b6f6b7f4a845738e",
   "datasourceNames": [
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -192,9 +193,9 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../app/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Client {\n  id          String     @id @default(cuid())\n  name        String\n  phone       String     @unique\n  createdAt   DateTime   @default(now())\n  updatedAt   DateTime   @updatedAt\n  address     String\n  contractDue DateTime\n  shopBlock   String\n  shopNumber  String\n  shopSize    Float\n  pasarName   String\n  reminders   Reminder[] @relation(\"ClientReminders\")\n\n  @@index([phone])\n  @@index([pasarName])\n}\n\nmodel Reminder {\n  id          String         @id @default(cuid())\n  title       String\n  dueDate     DateTime\n  messageBody String\n  status      ReminderStatus @default(PENDING)\n  sentAt      DateTime?\n  userId      String\n  clientId    String\n  createdAt   DateTime       @default(now())\n  updatedAt   DateTime       @updatedAt\n  amountDue   Int\n  period      String\n  client      Client         @relation(\"ClientReminders\", fields: [clientId], references: [id], onDelete: Cascade)\n\n  @@index([status])\n  @@index([dueDate])\n  @@index([userId])\n}\n\nenum ReminderStatus {\n  PENDING\n  SENT\n  FAILED\n}\n",
-  "inlineSchemaHash": "42bd6ece3e1f3c78ffb552b81b3f7e12ff500568577ad5b3a5fb2b41465fa1a8",
-  "copyEngine": false
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Client {\n  id          String     @id @default(cuid())\n  name        String\n  phone       String     @unique\n  createdAt   DateTime   @default(now())\n  updatedAt   DateTime   @updatedAt\n  address     String\n  contractDue DateTime\n  shopBlock   String\n  shopNumber  String\n  shopSize    Float\n  pasarName   String\n  reminders   Reminder[] @relation(\"ClientReminders\")\n\n  @@index([phone])\n  @@index([pasarName])\n}\n\nmodel Reminder {\n  id          String         @id @default(cuid())\n  title       String\n  dueDate     DateTime\n  messageBody String\n  status      ReminderStatus @default(PENDING)\n  sentAt      DateTime?\n  userId      String\n  clientId    String\n  createdAt   DateTime       @default(now())\n  updatedAt   DateTime       @updatedAt\n  amountDue   Int\n  period      String\n  client      Client         @relation(\"ClientReminders\", fields: [clientId], references: [id], onDelete: Cascade)\n\n  @@index([status])\n  @@index([dueDate])\n  @@index([userId])\n}\n\nenum ReminderStatus {\n  PENDING\n  SENT\n  FAILED\n}\n",
+  "inlineSchemaHash": "f576150e84c33b15bbc5f33f328981622d601a441773556eb7fdc277a104cf95",
+  "copyEngine": true
 }
 config.dirname = '/'
 
