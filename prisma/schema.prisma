@@ -1,0 +1,61 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model Client {
+  id          String     @id @default(cuid())
+  name        String
+  phone       String     @unique
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  address     String
+  contractDue DateTime
+  shopBlock   String
+  shopNumber  String
+  shopSize    Float
+  pasarName   String
+  reminders   Reminder[] @relation("ClientReminders")
+
+  @@index([phone])
+  @@index([pasarName])
+}
+
+model Reminder {
+  id          String         @id @default(cuid())
+  title       String
+  dueDate     DateTime
+  messageBody String
+  status      ReminderStatus @default(PENDING)
+  sentAt      DateTime?
+  userId      String
+  clientId    String
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  amountDue   Int
+  period      String
+  client      Client         @relation("ClientReminders", fields: [clientId], references: [id], onDelete: Cascade)
+
+  @@index([status])
+  @@index([dueDate])
+  @@index([userId])
+}
+
+enum ReminderStatus {
+  PENDING
+  SENT
+  FAILED
+}
