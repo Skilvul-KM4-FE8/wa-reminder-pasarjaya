@@ -8,7 +8,7 @@ export const useGetRuko = () => {
     queryFn: async () => {
       try {
         const res = await axios.get("/api/client");
-        return res.data;
+        return res.data.data;
       } catch (error: any) {
         throw new Error(error?.response?.data?.message || "Failed to fetch data");
       }

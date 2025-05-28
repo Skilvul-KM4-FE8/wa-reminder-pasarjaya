@@ -4,20 +4,26 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 // import { useGetMenus } from "@/features/menu/api/use-get-menus";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useGetRuko } from "../utils/useGetRuko";
+import { DataTable } from "./data-table";
+import { columns } from "./columns";
 // import { useBulkDeleteMenus } from "@/features/menu/api/use-bulk-delete-menus";
 // import useBuyDialog from "@/features/transaction/hooks/use-buy-dialog";
 
 export default function MenuPage() {
   // const menuQuery = useGetMenus();
-  // const menuData = menuQuery.data || [];
-  // console.log("Data dari Api:", menuData);
+  // const { data, isLoading, error, isPending } = useGetRuko();
+  const rukoQuery = useGetRuko();
+  const rukoData = rukoQuery.data || [];
+  console.log("Data dari Api:", rukoQuery.data);
+  console.log("Data dari Api:", rukoData.data);
   // const { onOpen: isOpenBuyDialog } = useBuyDialog();
 
   // const bulkDeleteMenuMutation = useBulkDeleteMenus();
 
-  // const disabled = menuQuery.isLoading || bulkDeleteMenuMutation.isPending;
+  const disabled = rukoQuery.isLoading || rukoQuery.isPending;
 
-  // if (menuQuery.isLoading) {
+  if (rukoQuery.isLoading) {
     return (
       <div className="max-w-screen-2xl w-full pb-10 -mt-24 flex justify-center items-center mx-auto">
         <Card className="w-full border-none bg-white drop-shadow-sm">
@@ -41,13 +47,13 @@ export default function MenuPage() {
         </Card>
       </div>
     );
-  // }
+  }
 
   return (
     <div className="mx-auto max-w-screen-2xl w-full pb-10 -mt-24">
-      <Card className="border-none drop-shadow-sm ">
+      <Card className="border-none drop-shadow-sm bg-white">
         <CardHeader className="flex gap-y-2 lg:flex-row lg:items-center lg:justify-between">
-          <CardTitle className="text-xl line-clamp-1">Menu Page</CardTitle>
+          <CardTitle className="text-xl line-clamp-1">Ruko List</CardTitle>
           {/* <Button size="sm" onClick={onOpen}>
             <Plus className="size-4 mr-2" />
             Add new
@@ -56,7 +62,7 @@ export default function MenuPage() {
         <CardContent>
           <DataTable
             columns={columns}
-            data={menuData.map((menu) => ({
+            data={rukoData.map((menu) => ({
               ...menu,
               quantity: 1,
             }))}
@@ -65,12 +71,13 @@ export default function MenuPage() {
             //   const ids = rows.map((row) => row.original.id);
             //   bulkDeleteMenuMutation.mutate(ids);
             // }}
-            onBuyItems={(rows) => {
+            onSend={(rows) => {
               // console.log("Rows selected for buying:", rows);
               const datas = rows.map((row) => ({
                 ...row.original,
               }));
-              isOpenBuyDialog(datas);
+              console.log("Data to be sent for buying:", datas);
+              // isOpenBuyDialog(datas);
             }}
           />
         </CardContent>
