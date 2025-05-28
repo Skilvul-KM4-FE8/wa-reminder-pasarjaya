@@ -55,7 +55,7 @@ export function DataTable<TData, TValue>({ columns, data, disabled, onSend }: Da
                 const ok = await confirm();
                 if (ok) {
                   // table.getFilteredSelectedRowModel().rows
-                  onDelete(table.getSelectedRowModel().rows);
+                  // onDelete(table.getSelectedRowModel().rows);
                 }
               }}
             >
