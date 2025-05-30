@@ -1,6 +1,9 @@
+// "use client"
+
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+// import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Providers from "@/app/client/providers"; // pastikan path benar
 
 const geistSans = Geist({
@@ -19,9 +22,13 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  // const queryClient = new QueryClient()
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body className="antialiased">
+        {/* <QueryClientProvider client={queryClient}>
+          {children}
+        </QueryClientProvider> */}
         <Providers>{children}</Providers>
       </body>
     </html>
