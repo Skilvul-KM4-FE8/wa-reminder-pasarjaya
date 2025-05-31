@@ -7,6 +7,10 @@ import { ArrowUpDown } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+
+import { format, differenceInMonths, isBefore, addMonths } from "date-fns";
+import { id as localeID } from "date-fns/locale";
+
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 
@@ -49,34 +53,6 @@ export const columns: ColumnDef<Ruko>[] = [
       );
     },
   },
-  // {
-  //   accessorKey: "amount",
-  //   header: ({ column }) => {
-  //     return (
-  //       <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-  //         Amount
-  //         <ArrowUpDown className="ml-2 h-4 w-4" />
-  //       </Button>
-  //     );
-  //   },
-  //   cell: ({ row }) => {
-  //     let amount = parseFloat(row.getValue("amount"));
-
-  //     return (
-  //       <div className="flex items-center gap-x-3">
-  //         <Button variant={"ghost"} size={"sm"}
-  //           onClick={() => {
-  //             amount - 1
-  //           }}
-  //         ><Minus className="size-4" /></Button>
-  //         <div className=" font-medium">{amount}</div>
-  //         <Button type="button" variant={"ghost"} size={"sm"} onClick={() => {
-  //             amount = amount + 1
-  //           }}><Plus className="size-4" /></Button>
-  //       </div>
-  //     );
-  //   }
-  // },
   {
     accessorKey: "phone",
     header: () => <div className="text-left">Phone</div>,
@@ -93,11 +69,83 @@ export const columns: ColumnDef<Ruko>[] = [
     },
   },
   {
-    accessorKey: "category",
+    accessorKey: "address",
     header: ({ column }) => {
       return (
         <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-          Category
+          Alamat
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+  },
+  {
+    accessorKey: "shopBlock",
+    header: ({ column }) => {
+      return (
+        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+          Blok
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+  },
+  {
+    accessorKey: "shopNumber",
+    header: ({ column }) => {
+      return (
+        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+          Nomor Ruko
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+  },
+  {
+    accessorKey: "shopSize",
+    header: ({ column }) => {
+      return (
+        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+          Ukuran
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const size = row.getValue("shopSize");
+      return ( <div className="text-left font-medium">{size as number}m<sup>2</sup></div> )
+    }
+  },
+  {
+    accessorKey: "contractDue",
+    header: ({ column }) => {
+      return (
+        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+          Kontrak
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const dueDate: Date = new Date(row.getValue("contractDue"));
+      const now = new Date();
+      const isNear = isBefore(dueDate, addMonths(now, 2));
+      const monthsLeft = differenceInMonths(dueDate, now);
+  
+      return (
+        <div className={isNear ? "text-red-600 font-semibold" : ""}>
+          {format(dueDate, "dd MMMM yyyy", { locale: localeID })}
+          <span className="text-lead text-sm">{monthsLeft < 0 ? " (Expired)" : monthsLeft === 0 ? " (Due this month)" : ` (${monthsLeft} bulan tersisa)` }</span>
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "pasarName",
+    header: ({ column }) => {
+      return (
+        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+          Pasar
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );

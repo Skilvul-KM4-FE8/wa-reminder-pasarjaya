@@ -77,6 +77,13 @@ export default function MenuPage() {
                 ...row.original,
               }));
               console.log("Data to be sent for buying:", datas);
+
+
+              datas.map(data => {
+                console.log(`Halo pak/buk ${data.name}, silahkan lakukan pembayaran loker ${data.pasarName} ///.
+                 //. pesan ini dikirim ke ${data.phone}/// .
+                  `);
+              })
               // isOpenBuyDialog(datas);
             }}
           />
