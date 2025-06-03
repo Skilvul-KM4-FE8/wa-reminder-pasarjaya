@@ -7,6 +7,10 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useGetRuko } from "../utils/useGetRuko";
 import { DataTable } from "./data-table";
 import { columns } from "./columns";
+import { Button } from "@/components/ui/button";
+import { Plus } from "lucide-react";
+import { useAddRuko } from "@/features/customer/hooks/use-add-dialog";
+
 // import { useBulkDeleteMenus } from "@/features/menu/api/use-bulk-delete-menus";
 // import useBuyDialog from "@/features/transaction/hooks/use-buy-dialog";
 
@@ -17,7 +21,7 @@ export default function MenuPage() {
   const rukoData = rukoQuery.data || [];
   console.log("Data dari Api:", rukoQuery.data);
   console.log("Data dari Api:", rukoData.data);
-  // const { onOpen: isOpenBuyDialog } = useBuyDialog();
+  const { onOpen: isOpenAddDialog } = useAddRuko();
 
   // const bulkDeleteMenuMutation = useBulkDeleteMenus();
 
@@ -54,15 +58,15 @@ export default function MenuPage() {
       <Card className="border-none drop-shadow-sm bg-white">
         <CardHeader className="flex gap-y-2 lg:flex-row lg:items-center lg:justify-between">
           <CardTitle className="text-xl line-clamp-1">Ruko List</CardTitle>
-          {/* <Button size="sm" onClick={onOpen}>
+          <Button size="sm" onClick={isOpenAddDialog} disabled={disabled}>
             <Plus className="size-4 mr-2" />
-            Add new
-          </Button> */}
+            Tambah Ruko
+          </Button>
         </CardHeader>
         <CardContent>
           <DataTable
             columns={columns}
-            data={rukoData.map((menu) => ({
+            data={rukoData.map((menu: any) => ({
               ...menu,
               quantity: 1,
             }))}
