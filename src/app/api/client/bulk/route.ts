@@ -4,6 +4,7 @@ import { NextResponse } from "next/server";
 export async function POST(request: Request) {
   try {
     const body = await request.json();
+    console.log(body);
 
     if (!Array.isArray(body) || body.length === 0) {
       return NextResponse.json({ message: "Invalid or empty data array" }, { status: 400 });

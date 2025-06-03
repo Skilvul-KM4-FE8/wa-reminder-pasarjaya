@@ -1,10 +1,12 @@
 "use client";
 
-import { Button } from "@/app/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { Ruko, columns } from "./columns";
 import { DataTable } from "./data-table";
 import { useGetRuko } from "@/app/utils/useGetRuko";
 import Link from "next/link";
+import { DialogRuko } from "@/app/components/mollecules/dialogRuko";
+import { DrawerRuko } from "@/app/components/mollecules/drawerRuko";
 
 // model Client {
 //   id          String     @id @default(cuid())
@@ -39,6 +41,8 @@ export default function DemoPage() {
         <p className="my-2 text-lg">This is a simple dashboard layout.</p>
       </div>
       <div className="w-full">
+        <DialogRuko />
+        <DrawerRuko />
         <DataTable columns={columns} data={data.data} />
       </div>
     </div>
