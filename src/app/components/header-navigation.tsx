@@ -13,12 +13,12 @@ const routes = [
     label: "Menu",
   },
   {
-    href: "/transaction",
-    label: "Transaction",
+    href: "/whatsapp",
+    label: "Whatsapp",
   },
   {
-    href: "/management",
-    label: "Management",
+    href: "/reminders",
+    label: "Reminders",
   },
   {
     href: "/overview",
