@@ -10,6 +10,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 
 import { format, differenceInMonths, isBefore, addMonths } from "date-fns";
 import { id as localeID } from "date-fns/locale";
+import { ActionCell } from "@/features/customer/components/actions";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -156,7 +157,7 @@ export const columns: ColumnDef<Ruko>[] = [
     id: "actions",
     header: "Actions",
     cell: ({ row }) => {
-      const payment = row.original;
+      const ruko = row.original;
 
       // const deleteMutation = useDeleteMenu(payment.id!);
       // const [DialogConfirm] = useConfirm("Are you sure?", "you are about to delete this menu");
@@ -171,22 +172,7 @@ export const columns: ColumnDef<Ruko>[] = [
 
       return (
         <>
-          {/* <DialogConfirm /> */}
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-8 w-8 p-0">
-                <span className="sr-only">Open menu</span>
-                <MoreHorizontal className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => navigator.clipboard.writeText(payment.id)}>Copy this menu ID</DropdownMenuItem>
-              {/* <DropdownMenuItem onClick={() => onOpen(row.original.id)}>Edit</DropdownMenuItem> */}
-              {/* <DropdownMenuItem onClick={handleDeleteMenu}>Delete</DropdownMenuItem> */}
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <ActionCell ruko={ruko} />
         </>
       );
     },

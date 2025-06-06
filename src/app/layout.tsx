@@ -5,6 +5,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 // import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Providers from "@/app/client/providers"; // pastikan path benar
+import { Toaster } from "sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,6 +27,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body className="antialiased">
+        <Toaster />
         {/* <QueryClientProvider client={queryClient}>
           {children}
         </QueryClientProvider> */}

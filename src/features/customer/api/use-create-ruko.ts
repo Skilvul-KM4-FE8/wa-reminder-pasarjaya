@@ -7,7 +7,7 @@ export const useCreateRuko = () => {
 
   const mutation = useMutation({
     mutationFn: async (json: any) => {
-      const response = await axios.post("api/ruko", json)
+      const response = await axios.post("api/client", json)
       return await response.data
     },
     onSuccess: () => {

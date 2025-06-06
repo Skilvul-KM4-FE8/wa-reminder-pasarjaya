@@ -1,74 +1,9 @@
-"use client"
-
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog"
-import { useAddRuko } from "../hooks/use-add-dialog"
 import { Button } from "@/components/ui/button"
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useState } from "react"
-import { useCreateRuko } from "../api/use-create-ruko"
 
-export const AddRukoDialog = () => {
-  const { isOpen, onOpen, onClose } = useAddRuko()
-  const mutation = useCreateRuko()
-
-  const [name, setName] = useState<string>("")
-  const [phone, setPhone] = useState<string>("")
-  const [address, setAddress] = useState<string>("")
-  const [contractDue, setContractDue] = useState<Date | null>(null)
-  const [shopBlock, setShopBlock] = useState<string>("")
-  const [shopNumber, setShopNumber] = useState<string>("")
-  const [shopSize, setShopSize] = useState<number>(0)
-  const [pasarName, setPasarName] = useState<string>("")
-
-  const onSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-
-    // Validasi semua field
-    if (
-      !name ||
-      !phone ||
-      !address ||
-      !contractDue ||
-      !shopBlock ||
-      !shopNumber ||
-      !shopSize ||
-      !pasarName
-    ) {
-      alert("Semua kolom harus diisi!")
-      return
-    }
-
-    // Kirim data
-    mutation.mutate({
-      name,
-      phone,
-      address,
-      contractDue,
-      shopBlock,
-      shopNumber,
-      shopSize,
-      pasarName,
-    })
-
-    // Reset dan tutup dialog
-    setName("")
-    setPhone("")
-    setAddress("")
-    setContractDue(null)
-    setShopBlock("")
-    setShopNumber("")
-    setShopSize(0)
-    setPasarName("")
-    onClose()
-  }
-
+export const EditRukoDialog = () => {
   return (
     <Dialog open={isOpen} onOpenChange={onOpen}>
       <DialogContent>
