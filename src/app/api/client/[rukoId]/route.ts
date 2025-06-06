@@ -74,3 +74,48 @@ export async function DELETE(request: Request, { params }: { params: { rukoId: s
     });
   }
 }
+
+export async function PUT(request: Request, { params }: { params: { rukoId: string } }) {
+  const { rukoId } = params;
+  const { name, phone, address, contractDue, shopBlock, shopNumber, shopSize, pasarName } = await request.json();
+
+  // console.log("Received request body:", request.body);
+  // console.log("Received request headers:", request.headers.get("Content-Type"));
+  // console.log("Received request method:", request.method);
+
+  try {
+    // Validate required fields
+    if (!rukoId || !name || !phone || !address || !contractDue || !shopBlock || !shopNumber || !shopSize || !pasarName) {
+      return new Response(JSON.stringify({ message: "All fields are required" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
+    // Update the ruko in the database
+    const updatedRuko = await prisma.client.update({
+      where: { id: rukoId },
+      data: {
+        name,
+        phone,
+        address,
+        contractDue,
+        shopBlock,
+        shopNumber,
+        shopSize,
+        pasarName,
+      },
+    });
+
+    return new Response(JSON.stringify(updatedRuko), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
+  } catch (error) {
+    console.error("Error updating ruko data:", error);
+    return new Response(JSON.stringify({ message: "Internal server error" }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+}
