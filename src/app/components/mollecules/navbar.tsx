@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 
 export default function navbar() {
   return (
-    <div className="flex items-center justify-between w-full px-4 py-2 bg-gray-900 text-white">
+    <div className="flex items-center justify-between w-full px-4 py-2 ">
       <div className="text-lg font-bold">PasarJaya</div>
       <div className="flex items-center gap-4">
         <Link href="/">
