@@ -1,13 +1,13 @@
-"use client"
+// "use client";
 
-import { useCreateCustomerModal } from "../hooks/use-create-customer-moda"
+// import { useCreateCustomerModal } from "../hooks/use-create-customer-modal";
 
-export const CreateCustomerModal = () => {
-  const { isOpen, setIsOpen, close } = useCreateCustomerModal()
+// export const CreateCustomerModal = () => {
+//   const { isOpen, setIsOpen, close } = useCreateCustomerModal();
 
-  return (
-    <ResponsiveModal>
-      <CreateCustomerForm onCalcel={close} />
-    </ResponsiveModal>
-  )
-}
+//   return (
+//     <ResponsiveModal>
+//       <CreateCustomerForm onCalcel={close} />
+//     </ResponsiveModal>
+//   );
+// };

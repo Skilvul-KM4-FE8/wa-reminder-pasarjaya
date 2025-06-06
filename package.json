@@ -34,7 +34,7 @@
     "@types/node": "^20.17.50",
     "@types/react": "^19.1.5",
     "@types/react-dom": "^19.1.5",
-    "prisma": "^6.8.2",
+    "prisma": "^6.9.0",
     "shadcn-ui": "^0.9.5",
     "tailwindcss": "^4.1.7",
     "tsx": "^4.19.4",
