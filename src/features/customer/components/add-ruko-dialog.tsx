@@ -1,3 +1,4 @@
+
 "use client"
 
 import {
@@ -69,13 +70,18 @@ export const AddRukoDialog = () => {
     onClose()
   }
 
+
   return (
     <Dialog open={isOpen} onOpenChange={onOpen}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Tambah Ruko</DialogTitle>
           <DialogDescription>
-            Silahkan isi data pengguna yang ingin memesan ruko baru. Pastikan data yang dimasukkan sudah benar sebelum mengirimkan permintaan.
+            This action cannot be undone. This will permanently delete your account and remove your data from our servers.
+            <Button variant="destructive" onClick={onClose} className="mt-4">
+              Close
+            </Button>
+
           </DialogDescription>
         </DialogHeader>
 
@@ -128,6 +134,6 @@ export const AddRukoDialog = () => {
           </Button>
         </form>
       </DialogContent>
-    </Dialog>
   )
 }
+
