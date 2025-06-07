@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useSendWAStateModal } from "../hooks/use-send-customer-modal";
+import { useSendWAStateModal } from "../hooks/use-push-customer-modal";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { toast } from "sonner";
 
