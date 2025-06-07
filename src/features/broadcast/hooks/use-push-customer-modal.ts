@@ -1,17 +1,16 @@
-"use client";
+import { Row } from "@tanstack/react-table";
+import { create } from "zustand";
 
-import { useQueryState, parseAsBoolean } from "nuqs";
-
-export const useBroadcastCustomerModal = () => {
-  const [isOpen, setIsOpen] = useQueryState("broadcast-customer", parseAsBoolean.withDefault(false).withOptions({ clearOnDefault: true }));
-
-  const open = () => setIsOpen(true);
-  const close = () => setIsOpen(false);
-
-  return {
-    isOpen,
-    open,
-    close,
-    setIsOpen,
-  };
+type SendWAState<T = any> = {
+  isOpen: boolean;
+  selectedRows: Row<T>[];
+  onOpen: (rows: Row<T>[]) => void;
+  onClose: () => void;
 };
+
+export const useSendWAStateModal = create<SendWAState>((set) => ({
+  isOpen: false,
+  selectedRows: [],
+  onOpen: (rows) => set({ isOpen: true, selectedRows: rows }),
+  onClose: () => set({ isOpen: false, selectedRows: [] }),
+}));

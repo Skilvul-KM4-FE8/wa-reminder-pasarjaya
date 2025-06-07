@@ -10,7 +10,7 @@ import { Menu } from "lucide-react";
 const routes = [
   {
     href: "/",
-    label: "Menu",
+    label: "Ruko",
   },
   {
     href: "/whatsapp",

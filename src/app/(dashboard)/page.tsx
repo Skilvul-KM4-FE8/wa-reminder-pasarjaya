@@ -10,6 +10,7 @@ import { columns } from "./columns";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import { useAddRuko } from "@/features/customer/hooks/use-add-dialog";
+import { CreateCustomerModal } from "@/features/broadcast/components /CreateCustomerModal";
 
 // import { useBulkDeleteMenus } from "@/features/menu/api/use-bulk-delete-menus";
 // import useBuyDialog from "@/features/transaction/hooks/use-buy-dialog";
@@ -19,9 +20,10 @@ export default function MenuPage() {
   // const { data, isLoading, error, isPending } = useGetRuko();
   const rukoQuery = useGetRuko();
   const rukoData = rukoQuery.data || [];
-  console.log("Data dari Api:", rukoQuery.data);
-  console.log("Data dari Api:", rukoData.data);
+  // console.log("Data dari Api:", rukoQuery.data);
+  // console.log("Data dari Api:", rukoData.data);
   const { onOpen: isOpenAddDialog } = useAddRuko();
+  const { onOpen: isSendWADialog } = useAddRuko();
 
   // const bulkDeleteMenuMutation = useBulkDeleteMenus();
 
@@ -63,11 +65,12 @@ export default function MenuPage() {
             Tambah Ruko
           </Button>
         </CardHeader>
+        <CreateCustomerModal />
         <CardContent>
           <DataTable
             columns={columns}
-            data={rukoData.map((menu: any) => ({
-              ...menu,
+            data={rukoData.map((ruko: any) => ({
+              ...ruko,
               quantity: 1,
             }))}
             disabled={disabled}
@@ -76,18 +79,16 @@ export default function MenuPage() {
             //   bulkDeleteMenuMutation.mutate(ids);
             // }}
             onSend={(rows) => {
-              // console.log("Rows selected for buying:", rows);
               const datas = rows.map((row) => ({
                 ...row.original,
               }));
               console.log("Data to be sent for buying:", datas);
 
-
-              datas.map(data => {
-                console.log(`Halo pak/buk ${data.name}, silahkan lakukan pembayaran loker ${data.pasarName} ///.
-                 //. pesan ini dikirim ke ${data.phone}/// .
+              datas.map((data) => {
+                console.log(`Halo pak/buk ${data.name}, silahkan lakukan pembayaran loker ${data.pasarName} .
+                 . pesan ini dikirim ke ${data.phone} .
                   `);
-              })
+              });
               // isOpenBuyDialog(datas);
             }}
           />
