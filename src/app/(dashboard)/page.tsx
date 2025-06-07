@@ -10,7 +10,7 @@ import { columns } from "./columns";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import { useAddRuko } from "@/features/customer/hooks/use-add-dialog";
-import { CreateCustomerModal } from "@/features/broadcast/components /CreateCustomerModal";
+import { SendCustomerModal } from "@/features/broadcast/components /SendCustomerModal";
 
 // import { useBulkDeleteMenus } from "@/features/menu/api/use-bulk-delete-menus";
 // import useBuyDialog from "@/features/transaction/hooks/use-buy-dialog";
@@ -65,7 +65,7 @@ export default function MenuPage() {
             Tambah Ruko
           </Button>
         </CardHeader>
-        <CreateCustomerModal />
+        <SendCustomerModal />
         <CardContent>
           <DataTable
             columns={columns}

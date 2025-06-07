@@ -6,7 +6,7 @@ import { ColumnDef, flexRender, getCoreRowModel, useReactTable, SortingState, ge
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useSendWAStateModal } from "@/features/broadcast/hooks/use-push-customer-modal"; // ✅ benar
+import { useSendWAStateModal } from "@/features/broadcast/hooks/use-send-customer-modal"; // ✅ benar
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
