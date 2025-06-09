@@ -10,15 +10,15 @@ import { Menu } from "lucide-react";
 const routes = [
   {
     href: "/",
-    label: "Menu",
+    label: "Ruko",
   },
   {
-    href: "/transaction",
-    label: "Transaction",
+    href: "/whatsapp",
+    label: "Whatsapp",
   },
   {
-    href: "/management",
-    label: "Management",
+    href: "/reminders",
+    label: "Reminders",
   },
   {
     href: "/overview",

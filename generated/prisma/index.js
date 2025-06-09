@@ -35,12 +35,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.8.2
- * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
+ * Prisma Client JS version: 6.9.0
+ * Query Engine version: 81e4af48011447c3cc503a190e86995b66d2a28e
  */
 Prisma.prismaVersion = {
-  client: "6.8.2",
-  engine: "2060c79ba17c6bb9f5823312b6f6b7f4a845738e"
+  client: "6.9.0",
+  engine: "81e4af48011447c3cc503a190e86995b66d2a28e"
 }
 
 Prisma.PrismaClientKnownRequestError = PrismaClientKnownRequestError;
@@ -157,7 +157,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\rafai\\OneDrive\\Documents\\Projects\\wa-reminder-pasarjaya\\generated\\prisma",
+      "value": "/Users/alfitosantosa/projects/pasarjaya/wa-reminder-pasarjaya/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -166,12 +166,12 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "windows",
+        "value": "darwin-arm64",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\rafai\\OneDrive\\Documents\\Projects\\wa-reminder-pasarjaya\\prisma\\schema.prisma",
+    "sourceFilePath": "/Users/alfitosantosa/projects/pasarjaya/wa-reminder-pasarjaya/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -179,8 +179,8 @@ const config = {
     "schemaEnvPath": "../../.env"
   },
   "relativePath": "../../prisma",
-  "clientVersion": "6.8.2",
-  "engineVersion": "2060c79ba17c6bb9f5823312b6f6b7f4a845738e",
+  "clientVersion": "6.9.0",
+  "engineVersion": "81e4af48011447c3cc503a190e86995b66d2a28e",
   "datasourceNames": [
     "db"
   ],
@@ -194,8 +194,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Client {\n  id          String     @id @default(cuid())\n  name        String\n  phone       String     @unique\n  createdAt   DateTime   @default(now())\n  updatedAt   DateTime   @updatedAt\n  address     String\n  contractDue DateTime\n  shopBlock   String\n  shopNumber  String\n  shopSize    Float\n  pasarName   String\n  reminders   Reminder[] @relation(\"ClientReminders\")\n\n  @@index([phone])\n  @@index([pasarName])\n}\n\nmodel Reminder {\n  id          String         @id @default(cuid())\n  title       String\n  dueDate     DateTime\n  messageBody String\n  status      ReminderStatus @default(PENDING)\n  sentAt      DateTime?\n  userId      String\n  clientId    String\n  createdAt   DateTime       @default(now())\n  updatedAt   DateTime       @updatedAt\n  amountDue   Int\n  period      String\n  client      Client         @relation(\"ClientReminders\", fields: [clientId], references: [id], onDelete: Cascade)\n\n  @@index([status])\n  @@index([dueDate])\n  @@index([userId])\n}\n\nenum ReminderStatus {\n  PENDING\n  SENT\n  FAILED\n}\n",
-  "inlineSchemaHash": "f576150e84c33b15bbc5f33f328981622d601a441773556eb7fdc277a104cf95",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Client {\n  id          String     @id @default(cuid())\n  name        String\n  phone       String     @unique\n  createdAt   DateTime   @default(now())\n  updatedAt   DateTime   @updatedAt\n  address     String\n  contractDue DateTime\n  shopBlock   String\n  shopNumber  String\n  shopSize    Float\n  pasarName   String\n  reminders   Reminder[] @relation(\"ClientReminders\")\n\n  @@index([phone])\n  @@index([pasarName])\n}\n\nmodel Reminder {\n  id          String         @id @default(cuid())\n  title       String\n  dueDate     DateTime\n  messageBody String\n  status      ReminderStatus @default(PENDING)\n  sentAt      DateTime?\n  userId      String\n  clientId    String\n  createdAt   DateTime       @default(now())\n  updatedAt   DateTime       @updatedAt\n  amountDue   Int\n  period      String\n  client      Client         @relation(\"ClientReminders\", fields: [clientId], references: [id], onDelete: Cascade)\n\n  @@index([status])\n  @@index([dueDate])\n  @@index([userId])\n}\n\nenum ReminderStatus {\n  PENDING\n  SENT\n  FAILED\n}\n",
+  "inlineSchemaHash": "1b2c65b33fff23bd66e331c79bc7b454b7cffc2e8dfb18ba36502c2564ae63b4",
   "copyEngine": true
 }
 
@@ -234,8 +234,8 @@ exports.PrismaClient = PrismaClient
 Object.assign(exports, Prisma)
 
 // file annotations for bundling tools to include these files
-path.join(__dirname, "query_engine-windows.dll.node");
-path.join(process.cwd(), "generated/prisma/query_engine-windows.dll.node")
+path.join(__dirname, "libquery_engine-darwin-arm64.dylib.node");
+path.join(process.cwd(), "generated/prisma/libquery_engine-darwin-arm64.dylib.node")
 // file annotations for bundling tools to include these files
 path.join(__dirname, "schema.prisma");
 path.join(process.cwd(), "generated/prisma/schema.prisma")

@@ -42,7 +42,7 @@ export async function GET(request: Request, { params }: { params: { rukoId: stri
 }
 
 export async function DELETE(request: Request, { params }: { params: { rukoId: string } }) {
-  const { rukoId } = params;
+  const { rukoId } = await params;
 
   // console.log("Received request to delete rukoId:", rukoId);
   // console.log("Request headers:", request.headers.get("Content-Type"));
