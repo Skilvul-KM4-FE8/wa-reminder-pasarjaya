@@ -4,7 +4,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 // import { useGetMenus } from "@/features/menu/api/use-get-menus";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useGetRuko } from "../utils/useGetRuko";
+import { useGetRukos } from "../utils/useGetRuko";
 import { DataTable } from "./data-table";
 import { columns } from "./columns";
 import { Button } from "@/components/ui/button";
@@ -18,7 +18,7 @@ import { SendCustomerModal } from "@/features/broadcast/components /SendCustomer
 export default function MenuPage() {
   // const menuQuery = useGetMenus();
   // const { data, isLoading, error, isPending } = useGetRuko();
-  const rukoQuery = useGetRuko();
+  const rukoQuery = useGetRukos();
   const rukoData = rukoQuery.data || [];
   // console.log("Data dari Api:", rukoQuery.data);
   // console.log("Data dari Api:", rukoData.data);

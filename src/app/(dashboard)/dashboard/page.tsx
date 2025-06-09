@@ -3,7 +3,7 @@
 import { Button } from "@/app/components/ui/button";
 import { Ruko, columns } from "./columns";
 import { DataTable } from "./data-table";
-import { useGetRuko } from "@/app/utils/useGetRuko";
+import { useGetRukos } from "@/app/utils/useGetRuko";
 
 // model Client {
 //   id          String     @id @default(cuid())
@@ -21,7 +21,7 @@ import { useGetRuko } from "@/app/utils/useGetRuko";
 // }
 
 export default function DemoPage() {
-  const { data, isLoading, error } = useGetRuko();
+  const { data, isLoading, error } = useGetRukos();
 
   // console.log(data.data);
   if (isLoading) {

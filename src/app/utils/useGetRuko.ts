@@ -2,7 +2,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-export const useGetRuko = () => {
+export const useGetRukos = () => {
   return useQuery({
     queryKey: ["ruko"],
     queryFn: async () => {
