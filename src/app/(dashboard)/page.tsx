@@ -58,9 +58,9 @@ export default function MenuPage() {
   return (
     <div className="mx-auto max-w-screen-2xl w-full pb-10 -mt-24">
       <Card className="border-none drop-shadow-sm bg-white">
-        <CardHeader className="flex gap-y-2 lg:flex-row lg:items-center lg:justify-between">
+        <CardHeader className="flex gap-y-2 flex-row items-center justify-between">
           <CardTitle className="text-xl line-clamp-1">Ruko List</CardTitle>
-          <Button size="sm" onClick={isOpenAddDialog} disabled={disabled}>
+          <Button onClick={isOpenAddDialog} disabled={disabled}>
             <Plus className="size-4 mr-2" />
             Tambah Ruko
           </Button>
