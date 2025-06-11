@@ -1,7 +1,7 @@
 import prisma from "../../../../../lib/prisma";
 
 export async function GET(request: Request, context: { params: { rukoId: string } }) {
-  const { rukoId } = context.params;
+  const { rukoId } = await context.params;
 
   console.log("Received request for rukoId:", rukoId);
   console.log("Request headers:", request.headers.get("Content-Type"));
@@ -42,7 +42,7 @@ export async function GET(request: Request, context: { params: { rukoId: string 
 }
 
 export async function DELETE(_request: Request, context: { params: { rukoId: string } }) {
-  const { rukoId } = context.params;
+  const { rukoId } = await context.params;
 
   // console.log("Received request to delete rukoId:", rukoId);
   // console.log("Request headers:", request.headers.get("Content-Type"));
@@ -76,7 +76,7 @@ export async function DELETE(_request: Request, context: { params: { rukoId: str
 }
 
 export async function PUT(request: Request, context: { params: { rukoId: string } }) {
-  const { rukoId } = context.params;
+  const { rukoId } = await context.params;
   const { name, phone, address, contractDue, shopBlock, shopNumber, shopSize, pasarName } = await request.json();
 
   // console.log("Received request body:", request.body);
