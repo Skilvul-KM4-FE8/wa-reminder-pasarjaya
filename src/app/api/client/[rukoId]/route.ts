@@ -3,9 +3,9 @@ import prisma from "../../../../../lib/prisma";
 export async function GET(request: Request, context: { params: { rukoId: string } }) {
   const { rukoId } = await context.params;
 
-  console.log("Received request for rukoId:", rukoId);
-  console.log("Request headers:", request.headers.get("Content-Type"));
-  console.log("Request method:", request.method);
+  // console.log("Received request for rukoId:", rukoId);
+  // console.log("Request headers:", request.headers.get("Content-Type"));
+  // console.log("Request method:", request.method);
 
   try {
     // Validate rukoId
