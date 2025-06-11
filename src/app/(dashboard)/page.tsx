@@ -10,7 +10,7 @@ import { columns } from "./columns";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import { useAddRuko } from "@/features/customer/hooks/use-add-dialog";
-import { SendCustomerModal } from "@/features/broadcast/components /SendCustomerModal";
+import { SendCustomerModal } from "@/features/broadcast/components/SendCustomerModal";
 
 // import { useBulkDeleteMenus } from "@/features/menu/api/use-bulk-delete-menus";
 // import useBuyDialog from "@/features/transaction/hooks/use-buy-dialog";
