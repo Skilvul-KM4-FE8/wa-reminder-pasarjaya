@@ -12,6 +12,7 @@ export async function GET(request: NextRequest) {
     });
   }
 
+
   try {
     const ruko = await prisma.client.findUnique({
       where: { id: rukoId },
