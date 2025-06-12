@@ -1,14 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-// type ResponseType = {
-//   id: string;
-//   name: string;
-//   price: string;
-//   category: string;
-//   createdAt: Date;
-//   updatedAt: Date;
-// };
+type ResponseType = {
+  name: string
+  phone: string
+  address: string
+  contractDue: string
+  shopBlock: string
+  shopNumber: string
+  shopSize: number
+  pasarName: string
+}
+
 
 export const useGetRuko = (id?: string) => {
   const queryClient = useQuery<ResponseType>({
