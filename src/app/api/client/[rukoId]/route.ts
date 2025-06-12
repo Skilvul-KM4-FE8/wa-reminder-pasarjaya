@@ -1,14 +1,13 @@
 import prisma from "../../../../../lib/prisma";
+import { NextRequest } from "next/server";
 
-export async function GET(request: Request, context: { params: { rukoId: string } }) {
-  const { rukoId } = await context.params;
+// GET handler
+export async function GET(_request: NextRequest, { params }: { params: { rukoId: string } }) {
+  const { rukoId } = params;
 
   console.log("Received request for rukoId:", rukoId);
-  console.log("Request headers:", request.headers.get("Content-Type"));
-  console.log("Request method:", request.method);
 
   try {
-    // Validate rukoId
     if (!rukoId) {
       return new Response(JSON.stringify({ message: "Ruko ID is required" }), {
         status: 400,
@@ -16,7 +15,6 @@ export async function GET(request: Request, context: { params: { rukoId: string 
       });
     }
 
-    // Fetch the ruko data from the database
     const ruko = await prisma.client.findUnique({
       where: { id: rukoId },
     });
@@ -41,15 +39,11 @@ export async function GET(request: Request, context: { params: { rukoId: string 
   }
 }
 
-export async function DELETE(_request: Request, context: { params: { rukoId: string } }) {
-  const { rukoId } = await context.params;
-
-  // console.log("Received request to delete rukoId:", rukoId);
-  // console.log("Request headers:", request.headers.get("Content-Type"));
-  // console.log("Request method:", request.method);
+// DELETE handler
+export async function DELETE(_request: NextRequest, { params }: { params: { rukoId: string } }) {
+  const { rukoId } = params;
 
   try {
-    // Validate rukoId
     if (!rukoId) {
       return new Response(JSON.stringify({ message: "Ruko ID is required" }), {
         status: 400,
@@ -57,7 +51,6 @@ export async function DELETE(_request: Request, context: { params: { rukoId: str
       });
     }
 
-    // Delete the ruko from the database
     const deletedRuko = await prisma.client.delete({
       where: { id: rukoId },
     });
@@ -75,24 +68,38 @@ export async function DELETE(_request: Request, context: { params: { rukoId: str
   }
 }
 
-export async function PUT(request: Request, context: { params: { rukoId: string } }) {
-  const { rukoId } = await context.params;
-  const { name, phone, address, contractDue, shopBlock, shopNumber, shopSize, pasarName } = await request.json();
-
-  // console.log("Received request body:", request.body);
-  // console.log("Received request headers:", request.headers.get("Content-Type"));
-  // console.log("Received request method:", request.method);
+// PUT handler
+export async function PUT(request: NextRequest, { params }: { params: { rukoId: string } }) {
+  const { rukoId } = params;
+  const {
+    name,
+    phone,
+    address,
+    contractDue,
+    shopBlock,
+    shopNumber,
+    shopSize,
+    pasarName,
+  } = await request.json();
 
   try {
-    // Validate required fields
-    if (!rukoId || !name || !phone || !address || !contractDue || !shopBlock || !shopNumber || !shopSize || !pasarName) {
+    if (
+      !rukoId ||
+      !name ||
+      !phone ||
+      !address ||
+      !contractDue ||
+      !shopBlock ||
+      !shopNumber ||
+      !shopSize ||
+      !pasarName
+    ) {
       return new Response(JSON.stringify({ message: "All fields are required" }), {
         status: 400,
         headers: { "Content-Type": "application/json" },
       });
     }
 
-    // Update the ruko in the database
     const updatedRuko = await prisma.client.update({
       where: { id: rukoId },
       data: {
