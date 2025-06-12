@@ -88,8 +88,8 @@ export default function ChartBarHorizontal() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Contract Due Dates</CardTitle>
-        <CardDescription>Contracts expiring by month</CardDescription>
+        <CardTitle>Jumlah Ruko Habis Kontrak</CardTitle>
+        <CardDescription>Grafik berdasarkan bulan</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
