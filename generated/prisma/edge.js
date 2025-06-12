@@ -156,7 +156,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Users/alfitosantosa/projects/pasarjaya/wa-reminder-pasarjaya/generated/prisma",
+      "value": "C:\\Users\\rafai\\OneDrive\\Documents\\Projects\\wa-reminder-pasarjaya\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -165,12 +165,12 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "darwin-arm64",
+        "value": "windows",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/Users/alfitosantosa/projects/pasarjaya/wa-reminder-pasarjaya/prisma/schema.prisma",
+    "sourceFilePath": "C:\\Users\\rafai\\OneDrive\\Documents\\Projects\\wa-reminder-pasarjaya\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -184,7 +184,7 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
-  "postinstall": false,
+  "postinstall": true,
   "inlineDatasources": {
     "db": {
       "url": {
