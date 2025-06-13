@@ -1,31 +1,38 @@
-# Base image
-FROM node:18-alpine
-
-# Set working directory
+# Stage 1: Builder
+FROM node:18-alpine AS builder
 WORKDIR /app
 
-# Copy package files
+# Copy package files and Prisma schema first
 COPY package.json package-lock.json ./
+COPY prisma ./prisma/
 
-# Fix registry & install dependencies
-RUN npm config set registry https://registry.npmjs.org/ && \
-    npm install --legacy-peer-deps --no-audit
+# Install dependencies and generate Prisma client
+RUN npm install
+RUN npx prisma generate
 
-# Copy all source code
+# Copy remaining files and build
 COPY . .
-
-# Prisma generate (tanpa engine karena sudah di-install via dependency)
-RUN npx prisma generate --no-engine
-
-# Build Next.js app
 RUN npm run build
 
-# Start the app
-CMD ["npm", "run", "start"]
+# Stage 2: Runner
+FROM node:18-alpine
+WORKDIR /app
 
-# Expose port
+ENV NODE_ENV production
+
+# Copy from builder
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./package.json
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/next.config.ts ./
+COPY --from=builder /app/prisma ./prisma
+
+# Create non-root user
+RUN addgroup -g 1001 -S nodejs
+RUN adduser -S nextjs -u 1001
+RUN chown -R nextjs:nodejs /app
+USER nextjs
+
 EXPOSE 3000
-
-# Healthcheck (optional)
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-  CMD wget --no-verbose --tries=1 --spider http://localhost:3000/ || exit 1
+CMD ["npm", "start"]
