@@ -1,6 +1,6 @@
 "use client";
-import { Header } from "../components/header";
-import QrScanner from "../components/qrscanner";
+import { Header } from "../../components/mollecules/header/header";
+import QrScanner from "../../components/mollecules/qrscanner";
 
 export default function WhatsappPage() {
   return (

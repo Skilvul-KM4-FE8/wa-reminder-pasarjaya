@@ -1,7 +1,7 @@
 import Link from "next/link";
 // import nextvulWhite from "../public/nextvulWhite.svg";
 import Image from "next/image";
-import logo from "../../../public/logo.png";
+import logo from "../../../../public/logo.png"; // Adjust the path as necessary
 
 export const HeaderLogo = () => {
   return (

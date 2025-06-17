@@ -1,7 +1,7 @@
 import { Card } from "@/components/ui/card";
-import { Header } from "../components/header";
-import ChartBarHorizontal from "@/app/components/mollecules/bar-chart-horizontal";
-import { ChartBarActive } from "../components/mollecules/chart-bar-active";
+import { Header } from "../../components/mollecules/header/header";
+import ChartBarHorizontal from "@/components/mollecules/bar-chart-horizontal";
+import { ChartBarActive } from "../../components/mollecules/chart-bar-active";
 export default function OverviewPage() {
   return (
     <>

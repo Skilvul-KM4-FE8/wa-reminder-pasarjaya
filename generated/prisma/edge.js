@@ -156,7 +156,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/app/generated/prisma",
+      "value": "/Users/alfitosantosa/projects/pasarjaya/wa-reminder-pasarjaya/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -165,12 +165,12 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "linux-musl-arm64-openssl-3.0.x",
+        "value": "darwin-arm64",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/app/prisma/schema.prisma",
+    "sourceFilePath": "/Users/alfitosantosa/projects/pasarjaya/wa-reminder-pasarjaya/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
