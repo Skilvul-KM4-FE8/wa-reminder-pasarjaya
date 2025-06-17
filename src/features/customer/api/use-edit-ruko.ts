@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { toast } from "sonner"
 
 export const useEditRuko = (id: string) => {
   const queryClient = useQueryClient()
@@ -21,9 +22,11 @@ export const useEditRuko = (id: string) => {
     },
     onSuccess: () => {
       console.log("Ruko updated successfully")
+      toast.success("Ruko berhasil di update")
       queryClient.invalidateQueries({ queryKey: ["ruko"] })
     },
     onError: (error: any) => {
+      toast.error("Gagal mengupdate ruko, silahkan hubungi administrator")
       console.error("Error updating ruko:", error)
     },
   })
