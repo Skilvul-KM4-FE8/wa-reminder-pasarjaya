@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { useOpenEditRuko } from "../hooks/use-open-edit-dialog"
 import { useGetRuko } from "../api/use-get-ruko"
 import { Loader2 } from "lucide-react"
@@ -29,7 +30,6 @@ export const EditRukoDialog = () => {
   const [shopSize, setShopSize] = useState(0)
   const [pasarName, setPasarName] = useState("")
 
-  // Set default value dari API
   useEffect(() => {
     if (rukoQuery.data) {
       setName(rukoQuery.data.name || "")
@@ -71,7 +71,7 @@ export const EditRukoDialog = () => {
   }
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Edit Ruko</DialogTitle>
@@ -104,15 +104,26 @@ export const EditRukoDialog = () => {
                 id="contract-due"
                 type="date"
                 value={contractDue ? contractDue.toISOString().split("T")[0] : ""}
-                onChange={e =>
-                  setContractDue(e.target.value ? new Date(e.target.value) : null)
-                }
+                onChange={e => setContractDue(e.target.value ? new Date(e.target.value) : null)}
                 required
               />
             </div>
             <div className="grid gap-3">
               <Label htmlFor="shop-block">Shop Block</Label>
-              <Input id="shop-block" value={shopBlock} onChange={e => setShopBlock(e.target.value)} required />
+              <Select value={shopBlock} onValueChange={setShopBlock} required>
+                <SelectTrigger className="w-full" id="shop-block">
+                  <SelectValue placeholder="Pilih blok" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="A">A</SelectItem>
+                  <SelectItem value="B">B</SelectItem>
+                  <SelectItem value="C">C</SelectItem>
+                  <SelectItem value="D">D</SelectItem>
+                  <SelectItem value="E">E</SelectItem>
+                  <SelectItem value="F">F</SelectItem>
+                  <SelectItem value="G">G</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
             <div className="grid gap-3">
               <Label htmlFor="shop-number">Shop Number</Label>
@@ -123,6 +134,7 @@ export const EditRukoDialog = () => {
               <Input
                 id="shop-size"
                 type="number"
+                min={1}
                 value={shopSize}
                 onChange={e => setShopSize(Number(e.target.value))}
                 required
@@ -130,13 +142,22 @@ export const EditRukoDialog = () => {
             </div>
             <div className="grid gap-3">
               <Label htmlFor="pasar-name">Pasar Name</Label>
-              <Input id="pasar-name" value={pasarName} onChange={e => setPasarName(e.target.value)} required />
+              <Select value={pasarName} onValueChange={setPasarName} required>
+                <SelectTrigger className="w-full" id="pasar-name">
+                  <SelectValue placeholder="Pilih pasar" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="PASAR SENIN">PASAR SENIN</SelectItem>
+                  <SelectItem value="PASAR MINGGU">PASAR MINGGU</SelectItem>
+                  <SelectItem value="PASAR TANAH ABANG">PASAR TANAH ABANG</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
 
             <Button type="submit" className="w-full">
               Submit
             </Button>
-            <Button type="button" variant="destructive" onClick={onClose}>
+            <Button type="button" variant="destructive" onClick={onClose} className="w-full">
               Close
             </Button>
           </form>
@@ -145,4 +166,3 @@ export const EditRukoDialog = () => {
     </Dialog>
   )
 }
-
