@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/app/components/ui/button";
+import { Button } from "@/components/ui/ui/button";
 import { Ruko, columns } from "./columns";
 import { DataTable } from "./data-table";
 import { useGetRukos } from "@/app/utils/useGetRuko";

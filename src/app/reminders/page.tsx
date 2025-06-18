@@ -1,5 +1,5 @@
 import { Card } from "@/components/ui/card";
-import { Header } from "../components/header";
+import { Header } from "../../components/mollecules/header/header";
 import { columns, Payment } from "./columns";
 import { DataTable } from "./data-table";
 

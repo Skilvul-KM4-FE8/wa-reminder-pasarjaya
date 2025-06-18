@@ -1,7 +1,8 @@
 import { usePathname } from "next/navigation";
-import { Button } from "./ui/button";
+import { Button } from "../../ui/button";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+
 
 type NavButtonProps = {
   href: string;
