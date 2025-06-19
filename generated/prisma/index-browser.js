@@ -131,7 +131,8 @@ exports.Prisma.ClientScalarFieldEnum = {
   shopBlock: 'shopBlock',
   shopNumber: 'shopNumber',
   shopSize: 'shopSize',
-  pasarName: 'pasarName'
+  pasarName: 'pasarName',
+  amountDue: 'amountDue'
 };
 
 exports.Prisma.ReminderScalarFieldEnum = {
@@ -145,8 +146,8 @@ exports.Prisma.ReminderScalarFieldEnum = {
   clientId: 'clientId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  amountDue: 'amountDue',
-  period: 'period'
+  period: 'period',
+  amountDue: 'amountDue'
 };
 
 exports.Prisma.SortOrder = {

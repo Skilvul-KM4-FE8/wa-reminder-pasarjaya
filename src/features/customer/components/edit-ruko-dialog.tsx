@@ -1,54 +1,52 @@
-"use client"
-import { useEffect, useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { useOpenEditRuko } from "../hooks/use-open-edit-dialog"
-import { useGetRuko } from "../api/use-get-ruko"
-import { Loader2 } from "lucide-react"
-import { useEditRuko } from "../api/use-edit-ruko"
+"use client";
+import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useOpenEditRuko } from "../hooks/use-open-edit-dialog";
+import { useGetRuko } from "../api/use-get-ruko";
+import { Loader2 } from "lucide-react";
+import { useEditRuko } from "../api/use-edit-ruko";
 
 export const EditRukoDialog = () => {
-  const { isOpen, onClose, id } = useOpenEditRuko()
-  const rukoQuery = useGetRuko(id!)
-  const editMutation = useEditRuko(id!)
+  const { isOpen, onClose, id } = useOpenEditRuko();
+  const rukoQuery = useGetRuko(id!);
+  const editMutation = useEditRuko(id!);
 
-  const isLoading =
-    rukoQuery.isLoading ||
-    rukoQuery.isFetching ||
-    rukoQuery.isRefetching ||
-    rukoQuery.isPending
+  const isLoading = rukoQuery.isLoading || rukoQuery.isFetching || rukoQuery.isRefetching || rukoQuery.isPending;
 
-  const [name, setName] = useState("")
-  const [phone, setPhone] = useState("")
-  const [address, setAddress] = useState("")
-  const [contractDue, setContractDue] = useState<Date | null>(null)
-  const [shopBlock, setShopBlock] = useState("")
-  const [shopNumber, setShopNumber] = useState("")
-  const [shopSize, setShopSize] = useState(0)
-  const [pasarName, setPasarName] = useState("")
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+  const [contractDue, setContractDue] = useState<Date | null>(null);
+  const [shopBlock, setShopBlock] = useState("");
+  const [shopNumber, setShopNumber] = useState("");
+  const [shopSize, setShopSize] = useState(0);
+  const [pasarName, setPasarName] = useState("");
+  const [amountDue, setAmountDue] = useState(0);
 
   useEffect(() => {
     if (rukoQuery.data) {
-      setName(rukoQuery.data.name || "")
-      setPhone(rukoQuery.data.phone || "")
-      setAddress(rukoQuery.data.address || "")
-      setContractDue(rukoQuery.data.contractDue ? new Date(rukoQuery.data.contractDue) : null)
-      setShopBlock(rukoQuery.data.shopBlock || "")
-      setShopNumber(rukoQuery.data.shopNumber || "")
-      setShopSize(rukoQuery.data.shopSize || 0)
-      setPasarName(rukoQuery.data.pasarName || "")
+      setName(rukoQuery.data.name || "");
+      setPhone(rukoQuery.data.phone || "");
+      setAddress(rukoQuery.data.address || "");
+      setContractDue(rukoQuery.data.contractDue ? new Date(rukoQuery.data.contractDue) : null);
+      setShopBlock(rukoQuery.data.shopBlock || "");
+      setShopNumber(rukoQuery.data.shopNumber || "");
+      setShopSize(rukoQuery.data.shopSize || 0);
+      setPasarName(rukoQuery.data.pasarName || "");
+      setAmountDue(rukoQuery.data.amountDue || 0);
     }
-  }, [rukoQuery.data])
+  }, [rukoQuery.data]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (!contractDue) {
-      alert("Contract Due tidak boleh kosong")
-      return
+      alert("Contract Due tidak boleh kosong");
+      return;
     }
 
     editMutation.mutate(
@@ -61,23 +59,22 @@ export const EditRukoDialog = () => {
         shopNumber,
         shopSize,
         pasarName,
+        amountDue,
       },
       {
         onSuccess: () => {
-          onClose()
+          onClose();
         },
       }
-    )
-  }
+    );
+  };
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Edit Ruko</DialogTitle>
-          <DialogDescription>
-            Silakan isi data ruko yang ingin diubah.
-          </DialogDescription>
+          <DialogDescription>Silakan isi data ruko yang ingin diubah.</DialogDescription>
         </DialogHeader>
 
         {isLoading ? (
@@ -88,31 +85,25 @@ export const EditRukoDialog = () => {
           <form onSubmit={handleSubmit} className="grid gap-4 mt-4">
             <div className="grid gap-3">
               <Label htmlFor="name">Name</Label>
-              <Input id="name" value={name} onChange={e => setName(e.target.value)} required />
+              <Input id="name" value={name} onChange={(e) => setName(e.target.value)} required />
             </div>
             <div className="grid gap-3">
               <Label htmlFor="phone">Phone</Label>
-              <Input id="phone" value={phone} onChange={e => setPhone(e.target.value)} required />
+              <Input id="phone" value={phone} onChange={(e) => setPhone(e.target.value)} required />
             </div>
             <div className="grid gap-3">
               <Label htmlFor="address">Address</Label>
-              <Input id="address" value={address} onChange={e => setAddress(e.target.value)} required />
+              <Input id="address" value={address} onChange={(e) => setAddress(e.target.value)} required />
             </div>
             <div className="grid gap-3">
               <Label htmlFor="contract-due">Contract Due</Label>
-              <Input
-                id="contract-due"
-                type="date"
-                value={contractDue ? contractDue.toISOString().split("T")[0] : ""}
-                onChange={e => setContractDue(e.target.value ? new Date(e.target.value) : null)}
-                required
-              />
+              <Input id="contract-due" type="date" value={contractDue ? contractDue.toISOString().split("T")[0] : ""} onChange={(e) => setContractDue(e.target.value ? new Date(e.target.value) : null)} required />
             </div>
             <div className="grid gap-3">
               <Label htmlFor="shop-block">Shop Block</Label>
               <Select value={shopBlock} onValueChange={setShopBlock} required>
                 <SelectTrigger className="w-full" id="shop-block">
-                  <SelectValue placeholder="Pilih blok" />
+                  <SelectValue>{shopBlock || "Pilih blok"}</SelectValue>
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="A">A</SelectItem>
@@ -127,24 +118,17 @@ export const EditRukoDialog = () => {
             </div>
             <div className="grid gap-3">
               <Label htmlFor="shop-number">Shop Number</Label>
-              <Input id="shop-number" value={shopNumber} onChange={e => setShopNumber(e.target.value)} required />
+              <Input id="shop-number" value={shopNumber} onChange={(e) => setShopNumber(e.target.value)} required />
             </div>
             <div className="grid gap-3">
-              <Label htmlFor="shop-size">Shop Size (m³)</Label>
-              <Input
-                id="shop-size"
-                type="number"
-                min={1}
-                value={shopSize}
-                onChange={e => setShopSize(Number(e.target.value))}
-                required
-              />
+              <Label htmlFor="shop-size">Shop Size (m2)</Label>
+              <Input id="shop-size" type="number" min={1} value={shopSize} onChange={(e) => setShopSize(Number(e.target.value))} required />
             </div>
             <div className="grid gap-3">
               <Label htmlFor="pasar-name">Pasar Name</Label>
               <Select value={pasarName} onValueChange={setPasarName} required>
                 <SelectTrigger className="w-full" id="pasar-name">
-                  <SelectValue placeholder="Pilih pasar" />
+                  <SelectValue>{pasarName || "Pilih pasar"}</SelectValue>
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="PASAR SENIN">PASAR SENIN</SelectItem>
@@ -152,6 +136,10 @@ export const EditRukoDialog = () => {
                   <SelectItem value="PASAR TANAH ABANG">PASAR TANAH ABANG</SelectItem>
                 </SelectContent>
               </Select>
+            </div>
+            <div className="grid gap-3">
+              <Label htmlFor="shop-size">Amount</Label>
+              <Input id="shop-size" type="number" min={1} value={amountDue} onChange={(e) => setAmountDue(Number(e.target.value))} required />
             </div>
 
             <Button type="submit" className="w-full">
@@ -164,5 +152,5 @@ export const EditRukoDialog = () => {
         )}
       </DialogContent>
     </Dialog>
-  )
-}
+  );
+};

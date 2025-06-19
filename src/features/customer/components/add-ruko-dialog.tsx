@@ -5,13 +5,7 @@ import { useAddRuko } from "../hooks/use-add-dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useState } from "react";
 import { useCreateRuko } from "../api/use-create-ruko";
 
@@ -27,20 +21,12 @@ export const AddRukoDialog = () => {
   const [shopNumber, setShopNumber] = useState<string>("");
   const [shopSize, setShopSize] = useState<number>(1);
   const [pasarName, setPasarName] = useState<string>("");
+  const [amountDue, setAmountDue] = useState<number>(1);
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (
-      !name ||
-      !phone ||
-      !address ||
-      !contractDue ||
-      !shopBlock ||
-      !shopNumber ||
-      !shopSize ||
-      !pasarName
-    ) {
+    if (!name || !phone || !address || !contractDue || !shopBlock || !shopNumber || !shopSize || !pasarName) {
       alert("Semua kolom harus diisi!");
       return;
     }
@@ -54,6 +40,7 @@ export const AddRukoDialog = () => {
       shopNumber,
       shopSize,
       pasarName,
+      amountDue,
     });
 
     setName("");
@@ -64,6 +51,7 @@ export const AddRukoDialog = () => {
     setShopNumber("");
     setShopSize(1);
     setPasarName("");
+    setAmountDue(1);
     onClose();
   };
 
@@ -77,54 +65,25 @@ export const AddRukoDialog = () => {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Tambah Ruko</DialogTitle>
-          <DialogDescription>
-            Isi data pemesanan ruko dengan lengkap. Pastikan semua kolom diisi sebelum mengirimkan data.
-          </DialogDescription>
+          <DialogDescription>Isi data pemesanan ruko dengan lengkap. Pastikan semua kolom diisi sebelum mengirimkan data.</DialogDescription>
         </DialogHeader>
 
         <form onSubmit={onSubmit} className="grid gap-4 mt-4">
           <div className="grid gap-3">
             <Label htmlFor="name">Name</Label>
-            <Input
-              id="name"
-              name="name"
-              value={name}
-              required
-              onChange={(e) => setName(e.target.value)}
-            />
+            <Input id="name" name="name" value={name} required onChange={(e) => setName(e.target.value)} />
           </div>
           <div className="grid gap-3">
             <Label htmlFor="phone">Phone</Label>
-            <Input
-              id="phone"
-              name="phone"
-              value={phone}
-              required
-              onChange={(e) => setPhone(e.target.value)}
-            />
+            <Input id="phone" name="phone" value={phone} required onChange={(e) => setPhone(e.target.value)} />
           </div>
           <div className="grid gap-3">
             <Label htmlFor="address">Address</Label>
-            <Input
-              id="address"
-              name="address"
-              value={address}
-              required
-              onChange={(e) => setAddress(e.target.value)}
-            />
+            <Input id="address" name="address" value={address} required onChange={(e) => setAddress(e.target.value)} />
           </div>
           <div className="grid gap-3">
             <Label htmlFor="contract-due">Contract Due</Label>
-            <Input
-              id="contract-due"
-              name="contractDue"
-              type="date"
-              required
-              value={contractDue ? contractDue.toISOString().split("T")[0] : ""}
-              onChange={(e) =>
-                setContractDue(e.target.value ? new Date(e.target.value) : null)
-              }
-            />
+            <Input id="contract-due" name="contractDue" type="date" required value={contractDue ? contractDue.toISOString().split("T")[0] : ""} onChange={(e) => setContractDue(e.target.value ? new Date(e.target.value) : null)} />
           </div>
           <div className="grid gap-3">
             <Label htmlFor="shop-block">Shop Block</Label>
@@ -143,27 +102,13 @@ export const AddRukoDialog = () => {
           </div>
           <div className="grid gap-3">
             <Label htmlFor="shop-number">Shop Number</Label>
-            <Input
-              id="shop-number"
-              name="shopNumber"
-              value={shopNumber}
-              required
-              onChange={(e) => setShopNumber(e.target.value)}
-            />
+            <Input id="shop-number" name="shopNumber" value={shopNumber} required onChange={(e) => setShopNumber(e.target.value)} />
           </div>
           <div className="grid gap-3">
             <Label htmlFor="shop-size">
-              Shop Size (m<sup>3</sup>)
+              Shop Size (m<sup>2</sup>)
             </Label>
-            <Input
-              id="shop-size"
-              name="shopSize"
-              type="number"
-              value={shopSize}
-              min={1}
-              required
-              onChange={(e) => setShopSize(Number(e.target.value))}
-            />
+            <Input id="shop-size" name="shopSize" type="number" value={shopSize} min={1} required onChange={(e) => setShopSize(Number(e.target.value))} />
           </div>
           <div className="grid gap-3">
             <Label htmlFor="pasar-name">Pasar Name</Label>
@@ -177,6 +122,10 @@ export const AddRukoDialog = () => {
                 <SelectItem value="PASAR TANAH ABANG">PASAR TANAH ABANG</SelectItem>
               </SelectContent>
             </Select>
+          </div>
+          <div className="grid gap-3">
+            <Label htmlFor="amount">Amount</Label>
+            <Input id="amount" name="amount" type="number" value={amountDue} min={1} required onChange={(e) => setAmountDue(Number(e.target.value))} />
           </div>
 
           <Button type="submit" className="w-full">

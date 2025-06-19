@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 type ResponseType = {
+  amountDue: any;
   name: string
   phone: string
   address: string

@@ -20,6 +20,7 @@ model Client {
   shopNumber  String
   shopSize    Float
   pasarName   String
+  amountDue   Float?
   reminders   Reminder[] @relation("ClientReminders")
 
   @@index([phone])
@@ -37,8 +38,8 @@ model Reminder {
   clientId    String
   createdAt   DateTime       @default(now())
   updatedAt   DateTime       @updatedAt
-  amountDue   Int
   period      String
+  amountDue   Float?
   client      Client         @relation("ClientReminders", fields: [clientId], references: [id], onDelete: Cascade)
 
   @@index([status])

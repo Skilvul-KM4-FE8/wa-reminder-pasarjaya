@@ -1022,10 +1022,12 @@ export namespace Prisma {
 
   export type ClientAvgAggregateOutputType = {
     shopSize: number | null
+    amountDue: number | null
   }
 
   export type ClientSumAggregateOutputType = {
     shopSize: number | null
+    amountDue: number | null
   }
 
   export type ClientMinAggregateOutputType = {
@@ -1040,6 +1042,7 @@ export namespace Prisma {
     shopNumber: string | null
     shopSize: number | null
     pasarName: string | null
+    amountDue: number | null
   }
 
   export type ClientMaxAggregateOutputType = {
@@ -1054,6 +1057,7 @@ export namespace Prisma {
     shopNumber: string | null
     shopSize: number | null
     pasarName: string | null
+    amountDue: number | null
   }
 
   export type ClientCountAggregateOutputType = {
@@ -1068,16 +1072,19 @@ export namespace Prisma {
     shopNumber: number
     shopSize: number
     pasarName: number
+    amountDue: number
     _all: number
   }
 
 
   export type ClientAvgAggregateInputType = {
     shopSize?: true
+    amountDue?: true
   }
 
   export type ClientSumAggregateInputType = {
     shopSize?: true
+    amountDue?: true
   }
 
   export type ClientMinAggregateInputType = {
@@ -1092,6 +1099,7 @@ export namespace Prisma {
     shopNumber?: true
     shopSize?: true
     pasarName?: true
+    amountDue?: true
   }
 
   export type ClientMaxAggregateInputType = {
@@ -1106,6 +1114,7 @@ export namespace Prisma {
     shopNumber?: true
     shopSize?: true
     pasarName?: true
+    amountDue?: true
   }
 
   export type ClientCountAggregateInputType = {
@@ -1120,6 +1129,7 @@ export namespace Prisma {
     shopNumber?: true
     shopSize?: true
     pasarName?: true
+    amountDue?: true
     _all?: true
   }
 
@@ -1221,6 +1231,7 @@ export namespace Prisma {
     shopNumber: string
     shopSize: number
     pasarName: string
+    amountDue: number | null
     _count: ClientCountAggregateOutputType | null
     _avg: ClientAvgAggregateOutputType | null
     _sum: ClientSumAggregateOutputType | null
@@ -1254,6 +1265,7 @@ export namespace Prisma {
     shopNumber?: boolean
     shopSize?: boolean
     pasarName?: boolean
+    amountDue?: boolean
     reminders?: boolean | Client$remindersArgs<ExtArgs>
     _count?: boolean | ClientCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["client"]>
@@ -1270,6 +1282,7 @@ export namespace Prisma {
     shopNumber?: boolean
     shopSize?: boolean
     pasarName?: boolean
+    amountDue?: boolean
   }, ExtArgs["result"]["client"]>
 
   export type ClientSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1284,6 +1297,7 @@ export namespace Prisma {
     shopNumber?: boolean
     shopSize?: boolean
     pasarName?: boolean
+    amountDue?: boolean
   }, ExtArgs["result"]["client"]>
 
   export type ClientSelectScalar = {
@@ -1298,9 +1312,10 @@ export namespace Prisma {
     shopNumber?: boolean
     shopSize?: boolean
     pasarName?: boolean
+    amountDue?: boolean
   }
 
-  export type ClientOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "phone" | "createdAt" | "updatedAt" | "address" | "contractDue" | "shopBlock" | "shopNumber" | "shopSize" | "pasarName", ExtArgs["result"]["client"]>
+  export type ClientOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "phone" | "createdAt" | "updatedAt" | "address" | "contractDue" | "shopBlock" | "shopNumber" | "shopSize" | "pasarName" | "amountDue", ExtArgs["result"]["client"]>
   export type ClientInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     reminders?: boolean | Client$remindersArgs<ExtArgs>
     _count?: boolean | ClientCountOutputTypeDefaultArgs<ExtArgs>
@@ -1325,6 +1340,7 @@ export namespace Prisma {
       shopNumber: string
       shopSize: number
       pasarName: string
+      amountDue: number | null
     }, ExtArgs["result"]["client"]>
     composites: {}
   }
@@ -1760,6 +1776,7 @@ export namespace Prisma {
     readonly shopNumber: FieldRef<"Client", 'String'>
     readonly shopSize: FieldRef<"Client", 'Float'>
     readonly pasarName: FieldRef<"Client", 'String'>
+    readonly amountDue: FieldRef<"Client", 'Float'>
   }
     
 
@@ -2221,8 +2238,8 @@ export namespace Prisma {
     clientId: string | null
     createdAt: Date | null
     updatedAt: Date | null
-    amountDue: number | null
     period: string | null
+    amountDue: number | null
   }
 
   export type ReminderMaxAggregateOutputType = {
@@ -2236,8 +2253,8 @@ export namespace Prisma {
     clientId: string | null
     createdAt: Date | null
     updatedAt: Date | null
-    amountDue: number | null
     period: string | null
+    amountDue: number | null
   }
 
   export type ReminderCountAggregateOutputType = {
@@ -2251,8 +2268,8 @@ export namespace Prisma {
     clientId: number
     createdAt: number
     updatedAt: number
-    amountDue: number
     period: number
+    amountDue: number
     _all: number
   }
 
@@ -2276,8 +2293,8 @@ export namespace Prisma {
     clientId?: true
     createdAt?: true
     updatedAt?: true
-    amountDue?: true
     period?: true
+    amountDue?: true
   }
 
   export type ReminderMaxAggregateInputType = {
@@ -2291,8 +2308,8 @@ export namespace Prisma {
     clientId?: true
     createdAt?: true
     updatedAt?: true
-    amountDue?: true
     period?: true
+    amountDue?: true
   }
 
   export type ReminderCountAggregateInputType = {
@@ -2306,8 +2323,8 @@ export namespace Prisma {
     clientId?: true
     createdAt?: true
     updatedAt?: true
-    amountDue?: true
     period?: true
+    amountDue?: true
     _all?: true
   }
 
@@ -2408,8 +2425,8 @@ export namespace Prisma {
     clientId: string
     createdAt: Date
     updatedAt: Date
-    amountDue: number
     period: string
+    amountDue: number | null
     _count: ReminderCountAggregateOutputType | null
     _avg: ReminderAvgAggregateOutputType | null
     _sum: ReminderSumAggregateOutputType | null
@@ -2442,8 +2459,8 @@ export namespace Prisma {
     clientId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    amountDue?: boolean
     period?: boolean
+    amountDue?: boolean
     client?: boolean | ClientDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["reminder"]>
 
@@ -2458,8 +2475,8 @@ export namespace Prisma {
     clientId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    amountDue?: boolean
     period?: boolean
+    amountDue?: boolean
     client?: boolean | ClientDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["reminder"]>
 
@@ -2474,8 +2491,8 @@ export namespace Prisma {
     clientId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    amountDue?: boolean
     period?: boolean
+    amountDue?: boolean
     client?: boolean | ClientDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["reminder"]>
 
@@ -2490,11 +2507,11 @@ export namespace Prisma {
     clientId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    amountDue?: boolean
     period?: boolean
+    amountDue?: boolean
   }
 
-  export type ReminderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "dueDate" | "messageBody" | "status" | "sentAt" | "userId" | "clientId" | "createdAt" | "updatedAt" | "amountDue" | "period", ExtArgs["result"]["reminder"]>
+  export type ReminderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "dueDate" | "messageBody" | "status" | "sentAt" | "userId" | "clientId" | "createdAt" | "updatedAt" | "period" | "amountDue", ExtArgs["result"]["reminder"]>
   export type ReminderInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     client?: boolean | ClientDefaultArgs<ExtArgs>
   }
@@ -2521,8 +2538,8 @@ export namespace Prisma {
       clientId: string
       createdAt: Date
       updatedAt: Date
-      amountDue: number
       period: string
+      amountDue: number | null
     }, ExtArgs["result"]["reminder"]>
     composites: {}
   }
@@ -2957,8 +2974,8 @@ export namespace Prisma {
     readonly clientId: FieldRef<"Reminder", 'String'>
     readonly createdAt: FieldRef<"Reminder", 'DateTime'>
     readonly updatedAt: FieldRef<"Reminder", 'DateTime'>
-    readonly amountDue: FieldRef<"Reminder", 'Int'>
     readonly period: FieldRef<"Reminder", 'String'>
+    readonly amountDue: FieldRef<"Reminder", 'Float'>
   }
     
 
@@ -3398,7 +3415,8 @@ export namespace Prisma {
     shopBlock: 'shopBlock',
     shopNumber: 'shopNumber',
     shopSize: 'shopSize',
-    pasarName: 'pasarName'
+    pasarName: 'pasarName',
+    amountDue: 'amountDue'
   };
 
   export type ClientScalarFieldEnum = (typeof ClientScalarFieldEnum)[keyof typeof ClientScalarFieldEnum]
@@ -3415,8 +3433,8 @@ export namespace Prisma {
     clientId: 'clientId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    amountDue: 'amountDue',
-    period: 'period'
+    period: 'period',
+    amountDue: 'amountDue'
   };
 
   export type ReminderScalarFieldEnum = (typeof ReminderScalarFieldEnum)[keyof typeof ReminderScalarFieldEnum]
@@ -3539,6 +3557,7 @@ export namespace Prisma {
     shopNumber?: StringFilter<"Client"> | string
     shopSize?: FloatFilter<"Client"> | number
     pasarName?: StringFilter<"Client"> | string
+    amountDue?: FloatNullableFilter<"Client"> | number | null
     reminders?: ReminderListRelationFilter
   }
 
@@ -3554,6 +3573,7 @@ export namespace Prisma {
     shopNumber?: SortOrder
     shopSize?: SortOrder
     pasarName?: SortOrder
+    amountDue?: SortOrderInput | SortOrder
     reminders?: ReminderOrderByRelationAggregateInput
   }
 
@@ -3572,6 +3592,7 @@ export namespace Prisma {
     shopNumber?: StringFilter<"Client"> | string
     shopSize?: FloatFilter<"Client"> | number
     pasarName?: StringFilter<"Client"> | string
+    amountDue?: FloatNullableFilter<"Client"> | number | null
     reminders?: ReminderListRelationFilter
   }, "id" | "phone">
 
@@ -3587,6 +3608,7 @@ export namespace Prisma {
     shopNumber?: SortOrder
     shopSize?: SortOrder
     pasarName?: SortOrder
+    amountDue?: SortOrderInput | SortOrder
     _count?: ClientCountOrderByAggregateInput
     _avg?: ClientAvgOrderByAggregateInput
     _max?: ClientMaxOrderByAggregateInput
@@ -3609,6 +3631,7 @@ export namespace Prisma {
     shopNumber?: StringWithAggregatesFilter<"Client"> | string
     shopSize?: FloatWithAggregatesFilter<"Client"> | number
     pasarName?: StringWithAggregatesFilter<"Client"> | string
+    amountDue?: FloatNullableWithAggregatesFilter<"Client"> | number | null
   }
 
   export type ReminderWhereInput = {
@@ -3625,8 +3648,8 @@ export namespace Prisma {
     clientId?: StringFilter<"Reminder"> | string
     createdAt?: DateTimeFilter<"Reminder"> | Date | string
     updatedAt?: DateTimeFilter<"Reminder"> | Date | string
-    amountDue?: IntFilter<"Reminder"> | number
     period?: StringFilter<"Reminder"> | string
+    amountDue?: FloatNullableFilter<"Reminder"> | number | null
     client?: XOR<ClientScalarRelationFilter, ClientWhereInput>
   }
 
@@ -3641,8 +3664,8 @@ export namespace Prisma {
     clientId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    amountDue?: SortOrder
     period?: SortOrder
+    amountDue?: SortOrderInput | SortOrder
     client?: ClientOrderByWithRelationInput
   }
 
@@ -3660,8 +3683,8 @@ export namespace Prisma {
     clientId?: StringFilter<"Reminder"> | string
     createdAt?: DateTimeFilter<"Reminder"> | Date | string
     updatedAt?: DateTimeFilter<"Reminder"> | Date | string
-    amountDue?: IntFilter<"Reminder"> | number
     period?: StringFilter<"Reminder"> | string
+    amountDue?: FloatNullableFilter<"Reminder"> | number | null
     client?: XOR<ClientScalarRelationFilter, ClientWhereInput>
   }, "id">
 
@@ -3676,8 +3699,8 @@ export namespace Prisma {
     clientId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    amountDue?: SortOrder
     period?: SortOrder
+    amountDue?: SortOrderInput | SortOrder
     _count?: ReminderCountOrderByAggregateInput
     _avg?: ReminderAvgOrderByAggregateInput
     _max?: ReminderMaxOrderByAggregateInput
@@ -3699,8 +3722,8 @@ export namespace Prisma {
     clientId?: StringWithAggregatesFilter<"Reminder"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Reminder"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Reminder"> | Date | string
-    amountDue?: IntWithAggregatesFilter<"Reminder"> | number
     period?: StringWithAggregatesFilter<"Reminder"> | string
+    amountDue?: FloatNullableWithAggregatesFilter<"Reminder"> | number | null
   }
 
   export type ClientCreateInput = {
@@ -3715,6 +3738,7 @@ export namespace Prisma {
     shopNumber: string
     shopSize: number
     pasarName: string
+    amountDue?: number | null
     reminders?: ReminderCreateNestedManyWithoutClientInput
   }
 
@@ -3730,6 +3754,7 @@ export namespace Prisma {
     shopNumber: string
     shopSize: number
     pasarName: string
+    amountDue?: number | null
     reminders?: ReminderUncheckedCreateNestedManyWithoutClientInput
   }
 
@@ -3745,6 +3770,7 @@ export namespace Prisma {
     shopNumber?: StringFieldUpdateOperationsInput | string
     shopSize?: FloatFieldUpdateOperationsInput | number
     pasarName?: StringFieldUpdateOperationsInput | string
+    amountDue?: NullableFloatFieldUpdateOperationsInput | number | null
     reminders?: ReminderUpdateManyWithoutClientNestedInput
   }
 
@@ -3760,6 +3786,7 @@ export namespace Prisma {
     shopNumber?: StringFieldUpdateOperationsInput | string
     shopSize?: FloatFieldUpdateOperationsInput | number
     pasarName?: StringFieldUpdateOperationsInput | string
+    amountDue?: NullableFloatFieldUpdateOperationsInput | number | null
     reminders?: ReminderUncheckedUpdateManyWithoutClientNestedInput
   }
 
@@ -3775,6 +3802,7 @@ export namespace Prisma {
     shopNumber: string
     shopSize: number
     pasarName: string
+    amountDue?: number | null
   }
 
   export type ClientUpdateManyMutationInput = {
@@ -3789,6 +3817,7 @@ export namespace Prisma {
     shopNumber?: StringFieldUpdateOperationsInput | string
     shopSize?: FloatFieldUpdateOperationsInput | number
     pasarName?: StringFieldUpdateOperationsInput | string
+    amountDue?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type ClientUncheckedUpdateManyInput = {
@@ -3803,6 +3832,7 @@ export namespace Prisma {
     shopNumber?: StringFieldUpdateOperationsInput | string
     shopSize?: FloatFieldUpdateOperationsInput | number
     pasarName?: StringFieldUpdateOperationsInput | string
+    amountDue?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type ReminderCreateInput = {
@@ -3815,8 +3845,8 @@ export namespace Prisma {
     userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    amountDue: number
     period: string
+    amountDue?: number | null
     client: ClientCreateNestedOneWithoutRemindersInput
   }
 
@@ -3831,8 +3861,8 @@ export namespace Prisma {
     clientId: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    amountDue: number
     period: string
+    amountDue?: number | null
   }
 
   export type ReminderUpdateInput = {
@@ -3845,8 +3875,8 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    amountDue?: IntFieldUpdateOperationsInput | number
     period?: StringFieldUpdateOperationsInput | string
+    amountDue?: NullableFloatFieldUpdateOperationsInput | number | null
     client?: ClientUpdateOneRequiredWithoutRemindersNestedInput
   }
 
@@ -3861,8 +3891,8 @@ export namespace Prisma {
     clientId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    amountDue?: IntFieldUpdateOperationsInput | number
     period?: StringFieldUpdateOperationsInput | string
+    amountDue?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type ReminderCreateManyInput = {
@@ -3876,8 +3906,8 @@ export namespace Prisma {
     clientId: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    amountDue: number
     period: string
+    amountDue?: number | null
   }
 
   export type ReminderUpdateManyMutationInput = {
@@ -3890,8 +3920,8 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    amountDue?: IntFieldUpdateOperationsInput | number
     period?: StringFieldUpdateOperationsInput | string
+    amountDue?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type ReminderUncheckedUpdateManyInput = {
@@ -3905,8 +3935,8 @@ export namespace Prisma {
     clientId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    amountDue?: IntFieldUpdateOperationsInput | number
     period?: StringFieldUpdateOperationsInput | string
+    amountDue?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -3946,10 +3976,26 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
+  export type FloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
   export type ReminderListRelationFilter = {
     every?: ReminderWhereInput
     some?: ReminderWhereInput
     none?: ReminderWhereInput
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
   }
 
   export type ReminderOrderByRelationAggregateInput = {
@@ -3968,10 +4014,12 @@ export namespace Prisma {
     shopNumber?: SortOrder
     shopSize?: SortOrder
     pasarName?: SortOrder
+    amountDue?: SortOrder
   }
 
   export type ClientAvgOrderByAggregateInput = {
     shopSize?: SortOrder
+    amountDue?: SortOrder
   }
 
   export type ClientMaxOrderByAggregateInput = {
@@ -3986,6 +4034,7 @@ export namespace Prisma {
     shopNumber?: SortOrder
     shopSize?: SortOrder
     pasarName?: SortOrder
+    amountDue?: SortOrder
   }
 
   export type ClientMinOrderByAggregateInput = {
@@ -4000,10 +4049,12 @@ export namespace Prisma {
     shopNumber?: SortOrder
     shopSize?: SortOrder
     pasarName?: SortOrder
+    amountDue?: SortOrder
   }
 
   export type ClientSumOrderByAggregateInput = {
     shopSize?: SortOrder
+    amountDue?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -4054,6 +4105,22 @@ export namespace Prisma {
     _max?: NestedFloatFilter<$PrismaModel>
   }
 
+  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
   export type EnumReminderStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.ReminderStatus | EnumReminderStatusFieldRefInput<$PrismaModel>
     in?: $Enums.ReminderStatus[] | ListEnumReminderStatusFieldRefInput<$PrismaModel>
@@ -4072,25 +4139,9 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
   export type ClientScalarRelationFilter = {
     is?: ClientWhereInput
     isNot?: ClientWhereInput
-  }
-
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
   }
 
   export type ReminderCountOrderByAggregateInput = {
@@ -4104,8 +4155,8 @@ export namespace Prisma {
     clientId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    amountDue?: SortOrder
     period?: SortOrder
+    amountDue?: SortOrder
   }
 
   export type ReminderAvgOrderByAggregateInput = {
@@ -4123,8 +4174,8 @@ export namespace Prisma {
     clientId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    amountDue?: SortOrder
     period?: SortOrder
+    amountDue?: SortOrder
   }
 
   export type ReminderMinOrderByAggregateInput = {
@@ -4138,8 +4189,8 @@ export namespace Prisma {
     clientId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    amountDue?: SortOrder
     period?: SortOrder
+    amountDue?: SortOrder
   }
 
   export type ReminderSumOrderByAggregateInput = {
@@ -4170,22 +4221,6 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
   export type ReminderCreateNestedManyWithoutClientInput = {
     create?: XOR<ReminderCreateWithoutClientInput, ReminderUncheckedCreateWithoutClientInput> | ReminderCreateWithoutClientInput[] | ReminderUncheckedCreateWithoutClientInput[]
     connectOrCreate?: ReminderCreateOrConnectWithoutClientInput | ReminderCreateOrConnectWithoutClientInput[]
@@ -4210,6 +4245,14 @@ export namespace Prisma {
 
   export type FloatFieldUpdateOperationsInput = {
     set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type NullableFloatFieldUpdateOperationsInput = {
+    set?: number | null
     increment?: number
     decrement?: number
     multiply?: number
@@ -4258,14 +4301,6 @@ export namespace Prisma {
     set?: Date | string | null
   }
 
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
   export type ClientUpdateOneRequiredWithoutRemindersNestedInput = {
     create?: XOR<ClientCreateWithoutRemindersInput, ClientUncheckedCreateWithoutRemindersInput>
     connectOrCreate?: ClientCreateOrConnectWithoutRemindersInput
@@ -4308,6 +4343,17 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
@@ -4368,6 +4414,33 @@ export namespace Prisma {
     _max?: NestedFloatFilter<$PrismaModel>
   }
 
+  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type NestedEnumReminderStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.ReminderStatus | EnumReminderStatusFieldRefInput<$PrismaModel>
     in?: $Enums.ReminderStatus[] | ListEnumReminderStatusFieldRefInput<$PrismaModel>
@@ -4410,33 +4483,6 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
   export type ReminderCreateWithoutClientInput = {
     id?: string
     title: string
@@ -4447,8 +4493,8 @@ export namespace Prisma {
     userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    amountDue: number
     period: string
+    amountDue?: number | null
   }
 
   export type ReminderUncheckedCreateWithoutClientInput = {
@@ -4461,8 +4507,8 @@ export namespace Prisma {
     userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    amountDue: number
     period: string
+    amountDue?: number | null
   }
 
   export type ReminderCreateOrConnectWithoutClientInput = {
@@ -4505,8 +4551,8 @@ export namespace Prisma {
     clientId?: StringFilter<"Reminder"> | string
     createdAt?: DateTimeFilter<"Reminder"> | Date | string
     updatedAt?: DateTimeFilter<"Reminder"> | Date | string
-    amountDue?: IntFilter<"Reminder"> | number
     period?: StringFilter<"Reminder"> | string
+    amountDue?: FloatNullableFilter<"Reminder"> | number | null
   }
 
   export type ClientCreateWithoutRemindersInput = {
@@ -4521,6 +4567,7 @@ export namespace Prisma {
     shopNumber: string
     shopSize: number
     pasarName: string
+    amountDue?: number | null
   }
 
   export type ClientUncheckedCreateWithoutRemindersInput = {
@@ -4535,6 +4582,7 @@ export namespace Prisma {
     shopNumber: string
     shopSize: number
     pasarName: string
+    amountDue?: number | null
   }
 
   export type ClientCreateOrConnectWithoutRemindersInput = {
@@ -4565,6 +4613,7 @@ export namespace Prisma {
     shopNumber?: StringFieldUpdateOperationsInput | string
     shopSize?: FloatFieldUpdateOperationsInput | number
     pasarName?: StringFieldUpdateOperationsInput | string
+    amountDue?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type ClientUncheckedUpdateWithoutRemindersInput = {
@@ -4579,6 +4628,7 @@ export namespace Prisma {
     shopNumber?: StringFieldUpdateOperationsInput | string
     shopSize?: FloatFieldUpdateOperationsInput | number
     pasarName?: StringFieldUpdateOperationsInput | string
+    amountDue?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type ReminderCreateManyClientInput = {
@@ -4591,8 +4641,8 @@ export namespace Prisma {
     userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    amountDue: number
     period: string
+    amountDue?: number | null
   }
 
   export type ReminderUpdateWithoutClientInput = {
@@ -4605,8 +4655,8 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    amountDue?: IntFieldUpdateOperationsInput | number
     period?: StringFieldUpdateOperationsInput | string
+    amountDue?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type ReminderUncheckedUpdateWithoutClientInput = {
@@ -4619,8 +4669,8 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    amountDue?: IntFieldUpdateOperationsInput | number
     period?: StringFieldUpdateOperationsInput | string
+    amountDue?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type ReminderUncheckedUpdateManyWithoutClientInput = {
@@ -4633,8 +4683,8 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    amountDue?: IntFieldUpdateOperationsInput | number
     period?: StringFieldUpdateOperationsInput | string
+    amountDue?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
 

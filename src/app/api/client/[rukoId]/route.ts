@@ -12,7 +12,6 @@ export async function GET(request: NextRequest) {
     });
   }
 
-
   try {
     const ruko = await prisma.client.findUnique({
       where: { id: rukoId },
@@ -70,28 +69,9 @@ export async function DELETE(request: NextRequest) {
 // PUT handler
 export async function PUT(request: NextRequest) {
   const rukoId = request.nextUrl.pathname.split("/").pop();
-  const {
-    name,
-    phone,
-    address,
-    contractDue,
-    shopBlock,
-    shopNumber,
-    shopSize,
-    pasarName,
-  } = await request.json();
+  const { name, phone, address, contractDue, shopBlock, shopNumber, shopSize, pasarName, amountDue } = await request.json();
 
-  if (
-    !rukoId ||
-    !name ||
-    !phone ||
-    !address ||
-    !contractDue ||
-    !shopBlock ||
-    !shopNumber ||
-    !shopSize ||
-    !pasarName
-  ) {
+  if (!rukoId || !name || !phone || !address || !contractDue || !shopBlock || !shopNumber || !shopSize || !pasarName || !amountDue) {
     return new Response(JSON.stringify({ message: "All fields are required" }), {
       status: 400,
       headers: { "Content-Type": "application/json" },
@@ -110,6 +90,7 @@ export async function PUT(request: NextRequest) {
         shopNumber,
         shopSize,
         pasarName,
+        amountDue,
       },
     });
 

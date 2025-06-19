@@ -5,14 +5,6 @@ import { MoreHorizontal } from "lucide-react";
 import { useOpenEditRuko } from "../hooks/use-open-edit-dialog";
 import { useDeleteRuko } from "../api/use-delete-ruko";
 
-// export type Menu = {
-//     id: string;
-//     // price: number;
-//     // author: string;
-//     // status: string
-//     name: string;
-//     price: number;
-//   };
 
 export const ActionCell = ({ ruko }: { ruko: any }) => {
     const { onOpen } = useOpenEditRuko(); // Hook can be used here

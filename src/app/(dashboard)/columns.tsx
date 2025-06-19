@@ -27,9 +27,9 @@ export type Ruko = {
   shopNumber: string;
   shopSize: number;
   pasarName: string;
+  amountDue: number;
   reminders: {
     id: string;
-    title: string;
     date: Date;
     clientId: string;
     createdAt: Date;
@@ -58,15 +58,22 @@ export const columns: ColumnDef<Ruko>[] = [
     accessorKey: "phone",
     header: () => <div className="text-left">Phone</div>,
     cell: ({ row }) => {
-      // const amount = parseFloat(row.getValue("price"));
-      // const formatted = new Intl.NumberFormat("id-ID", {
-      //   style: "currency",
-      //   currency: "IDR",
-      //   minimumFractionDigits: 0,
-      //   maximumFractionDigits: 0,
-      // }).format(amount);
-
       return <div className="text-left font-medium">{row.getValue("phone")}</div>;
+    },
+  },
+  {
+    accessorKey: "amountDue",
+    header: ({ column }) => {
+      return (
+        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+          Amount
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const amount = row.getValue("amountDue");
+      return <div className="text-left font-medium">{row.getValue("amountDue") ? new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(row.getValue("amountDue")) : "-"}</div>;
     },
   },
   {
@@ -114,8 +121,12 @@ export const columns: ColumnDef<Ruko>[] = [
     },
     cell: ({ row }) => {
       const size = row.getValue("shopSize");
-      return ( <div className="text-left font-medium">{size as number}m<sup>2</sup></div> )
-    }
+      return (
+        <div className="text-left font-medium">
+          {size as number}m<sup>2</sup>
+        </div>
+      );
+    },
   },
   {
     accessorKey: "contractDue",
@@ -132,11 +143,11 @@ export const columns: ColumnDef<Ruko>[] = [
       const now = new Date();
       const isNear = isBefore(dueDate, addMonths(now, 2));
       const monthsLeft = differenceInMonths(dueDate, now);
-  
+
       return (
         <div className={isNear ? "text-red-600 font-semibold" : ""}>
           {format(dueDate, "dd MMMM yyyy", { locale: localeID })}
-          <span className="text-lead text-sm">{monthsLeft < 0 ? " (Expired)" : monthsLeft === 0 ? " (Due this month)" : ` (${monthsLeft} bulan tersisa)` }</span>
+          <span className="text-lead text-sm">{monthsLeft < 0 ? " (Expired)" : monthsLeft === 0 ? " (Due this month)" : ` (${monthsLeft} bulan tersisa)`}</span>
         </div>
       );
     },
