@@ -1,14 +1,19 @@
 "use client";
+
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Loader2 } from "lucide-react";
+
 import { useOpenEditRuko } from "../hooks/use-open-edit-dialog";
 import { useGetRuko } from "../api/use-get-ruko";
-import { Loader2 } from "lucide-react";
 import { useEditRuko } from "../api/use-edit-ruko";
+
+const SHOP_BLOCK_OPTIONS = ["A", "B", "C", "D", "E", "F", "G"];
+const PASAR_OPTIONS = ["PASAR SENIN", "PASAR MINGGU", "PASAR TANAH ABANG"];
 
 export const EditRukoDialog = () => {
   const { isOpen, onClose, id } = useOpenEditRuko();
@@ -17,54 +22,58 @@ export const EditRukoDialog = () => {
 
   const isLoading = rukoQuery.isLoading || rukoQuery.isFetching || rukoQuery.isRefetching || rukoQuery.isPending;
 
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [address, setAddress] = useState("");
-  const [contractDue, setContractDue] = useState<Date | null>(null);
-  const [shopBlock, setShopBlock] = useState("");
-  const [shopNumber, setShopNumber] = useState("");
-  const [shopSize, setShopSize] = useState(0);
-  const [pasarName, setPasarName] = useState("");
-  const [amountDue, setAmountDue] = useState(0);
+  const [form, setForm] = useState({
+    name: "",
+    phone: "",
+    address: "",
+    contractDue: "",
+    shopBlock: "",
+    shopNumber: "",
+    shopSize: 0,
+    pasarName: "",
+    amountDue: 0,
+  });
 
   useEffect(() => {
     if (rukoQuery.data) {
-      setName(rukoQuery.data.name || "");
-      setPhone(rukoQuery.data.phone || "");
-      setAddress(rukoQuery.data.address || "");
-      setContractDue(rukoQuery.data.contractDue ? new Date(rukoQuery.data.contractDue) : null);
-      setShopBlock(rukoQuery.data.shopBlock || "");
-      setShopNumber(rukoQuery.data.shopNumber || "");
-      setShopSize(rukoQuery.data.shopSize || 0);
-      setPasarName(rukoQuery.data.pasarName || "");
-      setAmountDue(rukoQuery.data.amountDue || 0);
+      const data = rukoQuery.data;
+
+      const shopBlock = (data.shopBlock || "").trim().toUpperCase();
+      const pasarName = (data.pasarName || "").trim().toUpperCase();
+
+      setForm({
+        name: data.name || "",
+        phone: data.phone || "",
+        address: data.address || "",
+        contractDue: data.contractDue ? new Date(data.contractDue).toISOString().split("T")[0] : "",
+        shopBlock,
+        shopNumber: data.shopNumber || "",
+        shopSize: data.shopSize || 0,
+        pasarName,
+        amountDue: data.amountDue || 0,
+      });
     }
   }, [rukoQuery.data]);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleChange = (field: keyof typeof form, value: string | number) => {
+    setForm((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!contractDue) {
+    if (!form.contractDue) {
       alert("Contract Due tidak boleh kosong");
       return;
     }
 
     editMutation.mutate(
       {
-        name,
-        phone,
-        address,
-        contractDue: contractDue.toISOString(),
-        shopBlock,
-        shopNumber,
-        shopSize,
-        pasarName,
-        amountDue,
+        ...form,
+        contractDue: new Date(form.contractDue).toISOString(),
       },
       {
-        onSuccess: () => {
-          onClose();
-        },
+        onSuccess: () => onClose(),
       }
     );
   };
@@ -78,69 +87,68 @@ export const EditRukoDialog = () => {
         </DialogHeader>
 
         {isLoading ? (
-          <div className="absolute inset-0 flex items-center justify-center">
-            <Loader2 className="size-8 text-muted-foreground animate-spin" />
+          <div className="flex items-center justify-center h-40">
+            <Loader2 className="size-6 animate-spin text-muted-foreground" />
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="grid gap-4 mt-4">
-            <div className="grid gap-3">
-              <Label htmlFor="name">Name</Label>
-              <Input id="name" value={name} onChange={(e) => setName(e.target.value)} required />
-            </div>
-            <div className="grid gap-3">
-              <Label htmlFor="phone">Phone</Label>
-              <Input id="phone" value={phone} onChange={(e) => setPhone(e.target.value)} required />
-            </div>
-            <div className="grid gap-3">
-              <Label htmlFor="address">Address</Label>
-              <Input id="address" value={address} onChange={(e) => setAddress(e.target.value)} required />
-            </div>
-            <div className="grid gap-3">
-              <Label htmlFor="contract-due">Contract Due</Label>
-              <Input id="contract-due" type="date" value={contractDue ? contractDue.toISOString().split("T")[0] : ""} onChange={(e) => setContractDue(e.target.value ? new Date(e.target.value) : null)} required />
-            </div>
-            <div className="grid gap-3">
-              <Label htmlFor="shop-block">Shop Block</Label>
-              <Select value={shopBlock} onValueChange={setShopBlock} required>
-                <SelectTrigger className="w-full" id="shop-block">
-                  <SelectValue>{shopBlock || "Pilih blok"}</SelectValue>
+            <FormField label="Name">
+              <Input id="name" value={form.name} onChange={(e) => handleChange("name", e.target.value)} required />
+            </FormField>
+
+            <FormField label="Phone">
+              <Input id="phone" value={form.phone} onChange={(e) => handleChange("phone", e.target.value)} required />
+            </FormField>
+
+            <FormField label="Address">
+              <Input id="address" value={form.address} onChange={(e) => handleChange("address", e.target.value)} required />
+            </FormField>
+
+            <FormField label="Contract Due">
+              <Input id="contract-due" type="date" value={form.contractDue} onChange={(e) => handleChange("contractDue", e.target.value)} required />
+            </FormField>
+
+            <FormField label="Shop Block">
+              <Select value={form.shopBlock} onValueChange={(val) => handleChange("shopBlock", val)}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Pilih blok" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="A">A</SelectItem>
-                  <SelectItem value="B">B</SelectItem>
-                  <SelectItem value="C">C</SelectItem>
-                  <SelectItem value="D">D</SelectItem>
-                  <SelectItem value="E">E</SelectItem>
-                  <SelectItem value="F">F</SelectItem>
-                  <SelectItem value="G">G</SelectItem>
+                  {SHOP_BLOCK_OPTIONS.map((block) => (
+                    <SelectItem key={block} value={block}>
+                      {block}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
-            </div>
-            <div className="grid gap-3">
-              <Label htmlFor="shop-number">Shop Number</Label>
-              <Input id="shop-number" value={shopNumber} onChange={(e) => setShopNumber(e.target.value)} required />
-            </div>
-            <div className="grid gap-3">
-              <Label htmlFor="shop-size">Shop Size (m2)</Label>
-              <Input id="shop-size" type="number" min={1} value={shopSize} onChange={(e) => setShopSize(Number(e.target.value))} required />
-            </div>
-            <div className="grid gap-3">
-              <Label htmlFor="pasar-name">Pasar Name</Label>
-              <Select value={pasarName} onValueChange={setPasarName} required>
-                <SelectTrigger className="w-full" id="pasar-name">
-                  <SelectValue>{pasarName || "Pilih pasar"}</SelectValue>
+            </FormField>
+
+            <FormField label="Shop Number">
+              <Input id="shop-number" value={form.shopNumber} onChange={(e) => handleChange("shopNumber", e.target.value)} required />
+            </FormField>
+
+            <FormField label="Shop Size (m2)">
+              <Input id="shop-size" type="number" min={1} value={form.shopSize} onChange={(e) => handleChange("shopSize", Number(e.target.value))} required />
+            </FormField>
+
+            <FormField label="Pasar Name">
+              <Select value={form.pasarName} onValueChange={(val) => handleChange("pasarName", val)}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Pilih pasar" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="PASAR SENIN">PASAR SENIN</SelectItem>
-                  <SelectItem value="PASAR MINGGU">PASAR MINGGU</SelectItem>
-                  <SelectItem value="PASAR TANAH ABANG">PASAR TANAH ABANG</SelectItem>
+                  {PASAR_OPTIONS.map((pasar) => (
+                    <SelectItem key={pasar} value={pasar}>
+                      {pasar}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
-            </div>
-            <div className="grid gap-3">
-              <Label htmlFor="shop-size">Amount</Label>
-              <Input id="shop-size" type="number" min={1} value={amountDue} onChange={(e) => setAmountDue(Number(e.target.value))} required />
-            </div>
+            </FormField>
+
+            <FormField label="Amount">
+              <Input id="amount" type="number" min={1} value={form.amountDue} onChange={(e) => handleChange("amountDue", Number(e.target.value))} required />
+            </FormField>
 
             <Button type="submit" className="w-full">
               Submit
@@ -154,3 +162,11 @@ export const EditRukoDialog = () => {
     </Dialog>
   );
 };
+
+// Reusable form field component
+const FormField = ({ label, children }: { label: string; children: React.ReactNode }) => (
+  <div className="grid gap-2">
+    <Label>{label}</Label>
+    {children}
+  </div>
+);
