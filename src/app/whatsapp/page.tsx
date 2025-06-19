@@ -6,7 +6,7 @@ export default function WhatsappPage() {
   return (
     <>
       <Header />
-      <div className="flex flex-col items-center justify-center p-(-4)">
+      <div className="flex flex-col items-center justify-center -mt-25">
         <QrScanner />
       </div>
     </>
