@@ -186,16 +186,17 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
-        "fromEnvVar": "DATABASE_URL",
+        "fromEnvVar": "NEXT_PUBLIC_DATABASE_URL",
         "value": null
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Client {\n  id          String     @id @default(cuid())\n  name        String\n  phone       String     @unique\n  createdAt   DateTime   @default(now())\n  updatedAt   DateTime   @updatedAt\n  address     String\n  contractDue DateTime\n  shopBlock   String\n  shopNumber  String\n  shopSize    Float\n  pasarName   String\n  amountDue   Float?\n  reminders   Reminder[] @relation(\"ClientReminders\")\n\n  @@index([phone])\n  @@index([pasarName])\n}\n\nmodel Reminder {\n  id          String         @id @default(cuid())\n  title       String\n  dueDate     DateTime\n  messageBody String\n  status      ReminderStatus @default(PENDING)\n  sentAt      DateTime?\n  userId      String\n  clientId    String\n  createdAt   DateTime       @default(now())\n  updatedAt   DateTime       @updatedAt\n  period      String\n  amountDue   Float?\n  client      Client         @relation(\"ClientReminders\", fields: [clientId], references: [id], onDelete: Cascade)\n\n  @@index([status])\n  @@index([dueDate])\n  @@index([userId])\n}\n\nenum ReminderStatus {\n  PENDING\n  SENT\n  FAILED\n}\n",
-  "inlineSchemaHash": "8ab72cbd3f8f1563874cd75c113511435f7a47938793819ee3421c67c4554ef4",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"NEXT_PUBLIC_DATABASE_URL\")\n}\n\nmodel Client {\n  id          String     @id @default(cuid())\n  name        String\n  phone       String     @unique\n  createdAt   DateTime   @default(now())\n  updatedAt   DateTime   @updatedAt\n  address     String\n  contractDue DateTime\n  shopBlock   String\n  shopNumber  String\n  shopSize    Float\n  pasarName   String\n  amountDue   Float?\n  reminders   Reminder[] @relation(\"ClientReminders\")\n\n  @@index([phone])\n  @@index([pasarName])\n}\n\nmodel Reminder {\n  id          String         @id @default(cuid())\n  title       String\n  dueDate     DateTime\n  messageBody String\n  status      ReminderStatus @default(PENDING)\n  sentAt      DateTime?\n  userId      String\n  clientId    String\n  createdAt   DateTime       @default(now())\n  updatedAt   DateTime       @updatedAt\n  period      String\n  amountDue   Float?\n  client      Client         @relation(\"ClientReminders\", fields: [clientId], references: [id], onDelete: Cascade)\n\n  @@index([status])\n  @@index([dueDate])\n  @@index([userId])\n}\n\nenum ReminderStatus {\n  PENDING\n  SENT\n  FAILED\n}\n",
+  "inlineSchemaHash": "00b8f9b7ebcc496473262457b87c2ba0e3bccd5f1d848a15222454597203b276",
   "copyEngine": true
 }
 
