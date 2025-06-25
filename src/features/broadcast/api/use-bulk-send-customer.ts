@@ -7,7 +7,7 @@ export const useCreateRuko = () => {
 
   const mutation = useMutation({
     mutationFn: async (json: any) => {
-      const response = await axios.post("process.env.API_WA_URL", json);
+      const response = await axios.post("process.env.NEXT_PUBLIC_API_WA_URL", json);
       return await response.data;
     },
     onSuccess: () => {

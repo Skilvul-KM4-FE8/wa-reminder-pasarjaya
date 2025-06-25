@@ -10,29 +10,47 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 
 export const SendCustomerModal = () => {
   const { isOpen, onClose, selectedRows } = useSendWAStateModal();
-
-  const [message, setMessage] = useState<string>("");
+  const [message, setMessage] = useState<string>(
+    "Halo {name},\n\nIni pengingat untuk pembayaran ruko Anda di {pasarName} blok {shopBlock} nomor {shopNumber}. Total yang harus dibayar: Rp {amountDue}. Kontrak berakhir pada: {contractDue}.\n\nTerima kasih!"
+  );
 
   const handleSendMessage = async () => {
+    // Format phone numbers to start with 62 and remove any non-digit characters
+    const formatPhoneNumber = (phone: string) => {
+      const cleaned = phone.replace(/\D/g, "");
+      return cleaned.startsWith("0") ? "62" + cleaned.substring(1) : cleaned.startsWith("62") ? cleaned : "62" + cleaned;
+    };
+
+    // Prepare payload exactly as your working example
     const payload = selectedRows.map((row) => {
       const data = row.original;
+      const formattedNumber = formatPhoneNumber(data.phone);
 
       const customMessage = message
-        .replace("{name}", data.name)
-        .replace("{pasarName}", data.pasarName)
-        .replace("{shopBlock}", data.shopBlock)
-        .replace("{shopNumber}", data.shopNumber)
-        .replace("{amountDue}", Number(data.amountDue).toLocaleString("id-ID", { style: "currency", currency: "IDR" }))
-        .replace("{contractDue}", new Date(data.contractDue).toLocaleDateString("id-ID"));
+        .replace(/{name}/g, data.name)
+        .replace(/{pasarName}/g, data.pasarName)
+        .replace(/{shopBlock}/g, data.shopBlock)
+        .replace(/{shopNumber}/g, data.shopNumber)
+        .replace(
+          /{amountDue}/g,
+          Number(data.amountDue).toLocaleString("id-ID", {
+            style: "currency",
+            currency: "IDR",
+            minimumFractionDigits: 0,
+          })
+        )
+        .replace(/{contractDue}/g, new Date(data.contractDue).toLocaleDateString("id-ID"));
 
       return {
-        number: data.phone,
+        number: formattedNumber,
         message: customMessage,
       };
     });
 
+    console.log("Payload being sent:", JSON.stringify(payload, null, 2));
+
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_WA_URL}/api/messages/bulk`, {
+      const response = await fetch(`http://202.10.47.75:4567/api/messages/bulk`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -40,74 +58,71 @@ export const SendCustomerModal = () => {
         body: JSON.stringify(payload),
       });
 
-      const data = await res.json();
+      const result = await response.json();
 
-      if (res.ok) {
-        toast.success(`✅ Berhasil mengirim pesan ke ${selectedRows.length} orang!`);
-        console.log("Detail hasil pengiriman:", data.results);
-      } else {
-        toast.error("❌ Gagal mengirim sebagian atau seluruh pesan.");
-        console.error("Error Response:", data);
+      if (!response.ok) {
+        throw new Error(result.message || "Failed to send messages");
       }
-    } catch (error) {
-      console.error("❌ Error saat mengirim pesan WA:", error);
-      toast.error("Terjadi kesalahan saat menghubungi server WA.");
-    } finally {
+
+      toast.success(`Berhasil mengirim ${selectedRows.length} pesan WhatsApp`);
       onClose();
+    } catch (error) {
+      console.error("Error sending messages:", error);
+      const errorMessage = typeof error === "object" && error !== null && "message" in error ? (error as { message: string }).message : String(error);
+      toast.error(`Gagal mengirim pesan: ${errorMessage}`);
     }
   };
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent>
+      <DialogContent className="max-w-2xl">
         <DialogHeader>
-          <DialogTitle>Daftar Penerima WA</DialogTitle>
-          <DialogDescription>Pesan akan dikirim ke {selectedRows.length} orang:</DialogDescription>
+          <DialogTitle>Kirim Pesan WhatsApp</DialogTitle>
+          <DialogDescription>Akan mengirim ke {selectedRows.length} penerima</DialogDescription>
         </DialogHeader>
-        <div className="max-h-[300px] overflow-auto  space-y-1 border p-2 rounded-md">
-          <div className="text-sm">
-            <Table className="w-full">
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="w-1/3">No</TableHead>
-                  <TableHead className="w-1/3">Nama</TableHead>
-                  <TableHead className="w-1/3">Nomor Telepon</TableHead>
-                  <TableHead className="w-1/3">Amount</TableHead>
+
+        <div className="max-h-64 overflow-y-auto border rounded-md p-2 mb-4">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>No</TableHead>
+                <TableHead>Nama</TableHead>
+                <TableHead>Nomor HP</TableHead>
+                <TableHead>Jumlah</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {selectedRows.map((row, index) => (
+                <TableRow key={index}>
+                  <TableCell>{index + 1}</TableCell>
+                  <TableCell>{row.original.name}</TableCell>
+                  <TableCell>{row.original.phone}</TableCell>
+                  <TableCell>
+                    {Number(row.original.amountDue).toLocaleString("id-ID", {
+                      style: "currency",
+                      currency: "IDR",
+                      minimumFractionDigits: 0,
+                    })}
+                  </TableCell>
                 </TableRow>
-              </TableHeader>
-              {selectedRows.map((row, idx) => (
-                <TableBody>
-                  <TableRow>
-                    <TableCell className="w-1/3">{idx + 1}</TableCell>
-                    <TableCell className="w-1/3">{row.original.name}</TableCell>
-                    <TableCell className="w-1/3">{row.original.phone}</TableCell>
-                    <TableCell className="w-1/3">{row.original.amountDue}</TableCell>
-                  </TableRow>
-                </TableBody>
               ))}
-            </Table>
+            </TableBody>
+          </Table>
+        </div>
+
+        <div className="space-y-2">
+          <p className="font-medium">Isi Pesan:</p>
+          <Textarea value={message} onChange={(e) => setMessage(e.target.value)} className="min-h-32" placeholder="Tulis pesan WhatsApp disini..." />
+          <div className="text-xs text-muted-foreground">
+            Gunakan variabel: {"{name}"}, {"{pasarName}"}, {"{shopBlock}"}, {"{shopNumber}"}, {"{amountDue}"}, {"{contractDue}"}
           </div>
         </div>
-        <p className="text-l mt-2">Isi Pesan</p>
-        {/* //text area untuk pesan */}
-        <div className="">
-          <Textarea
-            className="w-full h-24"
-            placeholder="Masukkan pesan yang ingin dikirim..."
-            defaultValue={`Halo {name},\n\nIni pengingat untuk pembayaran ruko Anda di {pasarName} blok {shopBlock} nomor {shopNumber}. Total yang harus dibayar: Rp {amountDue}. Kontrak berakhir pada: {contractDue}.\n\nTerima kasih!`}
-            onChange={(e) => {
-              setMessage(e.target.value);
-            }}
-          />
-        </div>
-        <div>
-          <p className="text-xs text-gray-500 mt-2">Pastikan nomor telepon sudah benar dan terdaftar di WhatsApp. Pesan akan dikirim secara bersamaan.</p>
-        </div>
-        <div className=" grid w-full grid-cols-1 gap-2">
-          <Button onClick={handleSendMessage}>Kirim Pesan</Button>
-          <Button variant="destructive" onClick={onClose}>
-            Tutup
+
+        <div className="flex justify-end gap-2 pt-4">
+          <Button variant="outline" onClick={onClose}>
+            Batal
           </Button>
+          <Button onClick={handleSendMessage}>Kirim Pesan</Button>
         </div>
       </DialogContent>
     </Dialog>
