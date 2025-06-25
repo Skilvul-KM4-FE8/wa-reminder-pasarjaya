@@ -9,6 +9,8 @@ import { useState } from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 export const SendCustomerModal = () => {
+  const apiWaUrl = process.env.NEXT_PUBLIC_API_WA_URL;
+
   const { isOpen, onClose, selectedRows } = useSendWAStateModal();
   const [message, setMessage] = useState<string>(
     "Halo {name},\n\nIni pengingat untuk pembayaran ruko Anda di {pasarName} blok {shopBlock} nomor {shopNumber}. Total yang harus dibayar: Rp {amountDue}. Kontrak berakhir pada: {contractDue}.\n\nTerima kasih!"
@@ -50,7 +52,7 @@ export const SendCustomerModal = () => {
     console.log("Payload being sent:", JSON.stringify(payload, null, 2));
 
     try {
-      const response = await fetch(`http://202.10.47.75:4567/api/messages/bulk`, {
+      const response = await fetch(`${apiWaUrl}/api/messages/bulk`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

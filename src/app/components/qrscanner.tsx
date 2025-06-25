@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 
 export default function QrScanner() {
+  const apiWaUrl = process.env.NEXT_PUBLIC_API_WA_URL;
   const [qrCode, setQrCode] = useState<string | null>(null);
   const [status, setStatus] = useState<string>("");
 
@@ -14,7 +15,7 @@ export default function QrScanner() {
   }, []);
 
   const getStatus = () => {
-    fetch(`http://202.10.47.75:4567/api/status`)
+    fetch(`${apiWaUrl}/api/status`)
       .then((response) => response.json())
       .then((data) => {
         console.log("Status Data:", data);
@@ -34,7 +35,7 @@ export default function QrScanner() {
 
   const getQr = () => {
     try {
-      const response = fetch(`http://202.10.47.75:4567/api/qr`);
+      const response = fetch(`${apiWaUrl}/api/qr`);
 
       response
         .then((res) => res.json())
@@ -54,7 +55,7 @@ export default function QrScanner() {
   };
 
   const handleLogout = () => {
-    fetch(`http://202.10.47.75:4567/api/logout`, {
+    fetch(`${apiWaUrl}/api/logout`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
