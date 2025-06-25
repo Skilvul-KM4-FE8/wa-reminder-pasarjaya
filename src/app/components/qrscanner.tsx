@@ -14,7 +14,7 @@ export default function QrScanner() {
   }, []);
 
   const getStatus = () => {
-    fetch(`${process.env.NEXT_PUBLIC_API_WA_URL}/api/status`)
+    fetch(`http://202.10.47.75:4567/api/status`)
       .then((response) => response.json())
       .then((data) => {
         console.log("Status Data:", data);
@@ -34,7 +34,7 @@ export default function QrScanner() {
 
   const getQr = () => {
     try {
-      const response = fetch(`${process.env.NEXT_PUBLIC_API_WA_URL}/api/qr`);
+      const response = fetch(`http://202.10.47.75:4567/api/qr`);
 
       response
         .then((res) => res.json())
@@ -54,7 +54,7 @@ export default function QrScanner() {
   };
 
   const handleLogout = () => {
-    fetch(`${process.env.NEXT_PUBLIC_API_WA_URL}/api/logout`, {
+    fetch(`$http://202.10.47.75:4567/api/logout`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

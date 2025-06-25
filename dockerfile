@@ -1,35 +1,36 @@
-# Stage 1: Builder
-FROM node:18-alpine AS builder
+# Gunakan base image ARM64
+FROM node:20-alpine
+
+# Install dependencies penting saja
+RUN apk add --no-cache \
+    openssl \
+    python3 \
+    make \
+    g++ \
+    # Dependencies untuk sharp
+    vips-dev
+
 WORKDIR /app
 
-# Install dependencies needed for build (python, make, g++, etc.)
-RUN apk add --no-cache python3 make g++
+# Install sharp khusus untuk ARM64 pertama kali
+RUN npm install --platform=linuxmusl --arch=arm64 sharp
 
-# Copy package files first for better caching
+# Copy package files
 COPY package.json package-lock.json ./
-RUN npm install --production=false  # Install all dependencies including devDependencies
+COPY prisma/schema.prisma ./prisma/
 
-# Copy .env file
-COPY .env ./
+# Install dependencies
+RUN npm install
 
-# Copy remaining files and build
+# Generate Prisma client
+RUN npx prisma generate
+
+# Copy aplikasi
 COPY . .
+
+# Build aplikasi
 RUN npm run build
 
-# Stage 2: Runner
-FROM node:18-alpine
-WORKDIR /app
-
-ENV NODE_ENV production
-
-# Copy .env file
-COPY --from=builder /app/.env ./
-
-# Copy only necessary files from builder
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/package.json ./
-
 EXPOSE 3000
+
 CMD ["npm", "start"]

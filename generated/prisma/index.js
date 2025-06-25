@@ -35,12 +35,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.9.0
- * Query Engine version: 81e4af48011447c3cc503a190e86995b66d2a28e
+ * Prisma Client JS version: 6.10.1
+ * Query Engine version: 9b628578b3b7cae625e8c927178f15a170e74a9c
  */
 Prisma.prismaVersion = {
-  client: "6.9.0",
-  engine: "81e4af48011447c3cc503a190e86995b66d2a28e"
+  client: "6.10.1",
+  engine: "9b628578b3b7cae625e8c927178f15a170e74a9c"
 }
 
 Prisma.PrismaClientKnownRequestError = PrismaClientKnownRequestError;
@@ -180,23 +180,23 @@ const config = {
     "schemaEnvPath": "../../.env"
   },
   "relativePath": "../../prisma",
-  "clientVersion": "6.9.0",
-  "engineVersion": "81e4af48011447c3cc503a190e86995b66d2a28e",
+  "clientVersion": "6.10.1",
+  "engineVersion": "9b628578b3b7cae625e8c927178f15a170e74a9c",
   "datasourceNames": [
     "db"
   ],
   "activeProvider": "postgresql",
-  "postinstall": false,
+  "postinstall": true,
   "inlineDatasources": {
     "db": {
       "url": {
-        "fromEnvVar": "NEXT_PUBLIC_DATABASE_URL",
+        "fromEnvVar": "DATABASE_URL",
         "value": null
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"NEXT_PUBLIC_DATABASE_URL\")\n}\n\nmodel Client {\n  id          String     @id @default(cuid())\n  name        String\n  phone       String     @unique\n  createdAt   DateTime   @default(now())\n  updatedAt   DateTime   @updatedAt\n  address     String\n  contractDue DateTime\n  shopBlock   String\n  shopNumber  String\n  shopSize    Float\n  pasarName   String\n  amountDue   Float?\n  reminders   Reminder[] @relation(\"ClientReminders\")\n\n  @@index([phone])\n  @@index([pasarName])\n}\n\nmodel Reminder {\n  id          String         @id @default(cuid())\n  title       String\n  dueDate     DateTime\n  messageBody String\n  status      ReminderStatus @default(PENDING)\n  sentAt      DateTime?\n  userId      String\n  clientId    String\n  createdAt   DateTime       @default(now())\n  updatedAt   DateTime       @updatedAt\n  period      String\n  amountDue   Float?\n  client      Client         @relation(\"ClientReminders\", fields: [clientId], references: [id], onDelete: Cascade)\n\n  @@index([status])\n  @@index([dueDate])\n  @@index([userId])\n}\n\nenum ReminderStatus {\n  PENDING\n  SENT\n  FAILED\n}\n",
-  "inlineSchemaHash": "00b8f9b7ebcc496473262457b87c2ba0e3bccd5f1d848a15222454597203b276",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Client {\n  id          String     @id @default(cuid())\n  name        String\n  phone       String     @unique\n  createdAt   DateTime   @default(now())\n  updatedAt   DateTime   @updatedAt\n  address     String\n  contractDue DateTime\n  shopBlock   String\n  shopNumber  String\n  shopSize    Float\n  pasarName   String\n  amountDue   Float?\n  reminders   Reminder[] @relation(\"ClientReminders\")\n\n  @@index([phone])\n  @@index([pasarName])\n}\n\nmodel Reminder {\n  id          String         @id @default(cuid())\n  title       String\n  dueDate     DateTime\n  messageBody String\n  status      ReminderStatus @default(PENDING)\n  sentAt      DateTime?\n  userId      String\n  clientId    String\n  createdAt   DateTime       @default(now())\n  updatedAt   DateTime       @updatedAt\n  period      String\n  amountDue   Float?\n  client      Client         @relation(\"ClientReminders\", fields: [clientId], references: [id], onDelete: Cascade)\n\n  @@index([status])\n  @@index([dueDate])\n  @@index([userId])\n}\n\nenum ReminderStatus {\n  PENDING\n  SENT\n  FAILED\n}\n",
+  "inlineSchemaHash": "8ab72cbd3f8f1563874cd75c113511435f7a47938793819ee3421c67c4554ef4",
   "copyEngine": true
 }
 
