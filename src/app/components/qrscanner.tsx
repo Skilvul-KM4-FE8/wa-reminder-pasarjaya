@@ -54,7 +54,7 @@ export default function QrScanner() {
   };
 
   const handleLogout = () => {
-    fetch(`$http://202.10.47.75:4567/api/logout`, {
+    fetch(`http://202.10.47.75:4567/api/logout`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
