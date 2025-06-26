@@ -4,10 +4,11 @@ import { toast } from "sonner";
 
 export const useCreateRuko = () => {
   const queryClient = useQueryClient();
+  const apiWaUrl = process.env.NEXT_PUBLIC_API_WA_URL;
 
   const mutation = useMutation({
     mutationFn: async (json: any) => {
-      const response = await axios.post("process.env.NEXT_PUBLIC_API_WA_URL", json);
+      const response = await axios.post(`${apiWaUrl}/api/messages/bulk`, json);
       return await response.data;
     },
     onSuccess: () => {
